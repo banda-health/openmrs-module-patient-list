@@ -1,0 +1,98 @@
+fieldset.nested{
+  width:100%;
+}
+fieldset.patientList{
+  width: 100%;
+  margin: 10px 0px;
+  border: 1px solid #666666;
+}
+fieldset.patientList select{
+  width: 100%;
+}
+ul.table-layout .gray-button{
+  background: #666666;
+  border-color: #666666;
+  color: white;
+}
+ul.table-layout{
+  margin: 0px;
+}
+.live-preview{
+    margin: 445px;
+}
+.empty-patient-list{
+    margin: 200px;
+}
+.main-content .status-container{
+  margin: 5px 6px !important;
+}
+.capitalize {
+  text-transform: capitalize;
+}
+fieldset.nested{
+  width:100%;
+}
+
+.legendHeader legend {
+    font-size: 16px;
+    width: 190px;
+    color: #00463f;
+    text-transform: none;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.btn-align{
+    margin: 5px 13px 0px 0px;
+}
+.dropdown-width{
+    width: 565px;
+}
+.dropdown-margin{
+    margin: 3px -532px 0 !important;
+}
+p.wrap{
+    word-wrap: break-word;
+    white-space: initial;
+}
+ul.overflow{
+    overflow: auto;
+}
+ul.overflow-height{
+    height: 1000%;
+}
+li.no-height{
+    height: initial;
+}
+.trash{
+    width:200px;
+    height: 200px;
+}
+.recent-lozenge {
+    display: inline-block;
+    vertical-align: text-bottom;
+    font-size: 0.7em;
+    border: 1px solid #51a351;
+    color: #51a351;
+    padding: 1px 2px;
+    border-radius: 4px;}
+
+.header_template{
+  width:99%;
+  font-weight:bold;
+  padding: 8px;
+  margin-left:5px;
+  background-color:#dddddd;
+}
+.body_template{
+  padding: 10px;
+}
+
+.clickable-tr:hover {
+    background-color: white !important;
+}
+.conceptSearch {
+    width: 355px;
+}
+#betweenDateOne-display{
+    width: 40%;
+}
