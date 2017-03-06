@@ -15,6 +15,7 @@ package org.openmrs.module.patientlist.api.util;
 
 import org.openmrs.module.patientlist.api.model.PatientListRelativeDate;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,5 +106,13 @@ public class PatientListDateUtil {
 
 	private static String formatDates(Date startDate, Date endDate) {
 		return simpleDateFormat.format(startDate) + "|" + simpleDateFormat.format(endDate);
+	}
+
+	public static Date formatDate(String date) {
+		try {
+			return simpleDateFormat.parse(date);
+		} catch (ParseException ex) {
+			throw new RuntimeException("error parsing date ", ex);
+		}
 	}
 }

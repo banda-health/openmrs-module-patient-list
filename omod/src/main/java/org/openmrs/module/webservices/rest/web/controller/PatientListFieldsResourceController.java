@@ -15,7 +15,7 @@ package org.openmrs.module.webservices.rest.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.module.patientlist.api.model.PatientInformationField;
+import org.openmrs.module.patientlist.api.util.IPatientInformationField;
 import org.openmrs.module.patientlist.api.util.PatientInformation;
 import org.openmrs.module.patientlist.api.util.PatientListTemplate;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
@@ -48,9 +48,9 @@ public class PatientListFieldsResourceController {
 			results.put("bodyTemplate", PatientListTemplate.getInstance().getDefaultBodyTemplate());
 		} else {
 			List<SimpleObject> fields = new ArrayList<SimpleObject>();
-			Map<String, PatientInformationField<?>> patientInformationFields =
+			Map<String, IPatientInformationField<?>> patientInformationFields =
 			        PatientInformation.getInstance().getFields();
-			for (Map.Entry<String, PatientInformationField<?>> set : patientInformationFields.entrySet()) {
+			for (Map.Entry<String, IPatientInformationField<?>> set : patientInformationFields.entrySet()) {
 				SimpleObject field = new SimpleObject();
 				field.put("field", set.getKey());
 				field.put("desc", set.getValue());

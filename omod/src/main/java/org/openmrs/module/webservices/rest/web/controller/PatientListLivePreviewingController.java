@@ -13,8 +13,8 @@
  */
 package org.openmrs.module.webservices.rest.web.controller;
 
-import org.openmrs.module.patientlist.api.IPatientListDataService;
-import org.openmrs.module.patientlist.api.model.PatientListData;
+import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.api.util.DummyPatient;
 import org.openmrs.module.patientlist.api.util.DummyVisit;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PatientListLivePreviewingController {
 
 	@Autowired
-	private IPatientListDataService patientListDataService;
+	private IPatientListContextModelDataService patientListDataService;
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class PatientListLivePreviewingController {
 		SimpleObject results = new SimpleObject();
 
 		DummyPatient patient = DummyPatient.getInstance();
-		PatientListData patientList = new PatientListData();
+		PatientListContextModel patientList = new PatientListContextModel();
 		patientList.setPatient(patient);
 
 		DummyVisit visit = DummyVisit.getInstance();

@@ -18,10 +18,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
+import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
 import org.openmrs.module.patientlist.api.IPatientListDataService;
-import org.openmrs.module.patientlist.api.IPatientListService;
 import org.openmrs.module.patientlist.api.model.PatientList;
-import org.openmrs.module.patientlist.api.model.PatientListData;
+import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.resource.AlreadyPagedWithLength;
 import org.openmrs.module.webservices.rest.resource.PagingUtil;
@@ -51,13 +51,13 @@ public class PatientListDataSearchHandler implements SearchHandler {
 	                                .withOptionalParameters("uuid")
 	                                .build()));
 
-	private IPatientListDataService patientListDataService;
-	private IPatientListService patientListService;
+	private IPatientListContextModelDataService patientListContextModelService;
+	private IPatientListDataService patientListService;
 
 	@Autowired
-	public PatientListDataSearchHandler(IPatientListDataService patientListDataService,
-	    IPatientListService patientListService) {
-		this.patientListDataService = patientListDataService;
+	public PatientListDataSearchHandler(IPatientListContextModelDataService patientListContextModelService,
+	    IPatientListDataService patientListService) {
+		this.patientListContextModelService = patientListContextModelService;
 		this.patientListService = patientListService;
 	}
 
@@ -82,11 +82,13 @@ public class PatientListDataSearchHandler implements SearchHandler {
 		}
 
 		PagingInfo pagingInfo = PagingUtil.getPagingInfoFromContext(context);
-		List<PatientListData> patientListData = patientListDataService.getPatientListData(patientList, pagingInfo);
+		List<PatientListContextModel> patientListData =
+		        patientListContextModelService.getPatientListData(patientList, pagingInfo);
 		if (patientListData.size() == 0) {
 			return new EmptySearchResult();
 		} else {
-			return new AlreadyPagedWithLength<PatientListData>(context, patientListData, pagingInfo.hasMoreResults(),
+			return new AlreadyPagedWithLength<PatientListContextModel>(context, patientListData,
+			        pagingInfo.hasMoreResults(),
 			        pagingInfo.getTotalRecordCount());
 		}
 	}

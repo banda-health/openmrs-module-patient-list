@@ -33,7 +33,11 @@ import org.openmrs.attribute.Attribute;
 import org.openmrs.attribute.AttributeType;
 import org.openmrs.customdatatype.Customizable;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
+import org.openmrs.module.patientlist.api.model.AbstractPatientListField;
 import org.openmrs.module.patientlist.api.model.PatientInformationField;
+import org.openmrs.module.patientlist.api.model.custom.AgePatientInformationField;
+import org.openmrs.module.patientlist.api.model.custom.BirthDatePatientInformationField;
+import org.openmrs.module.patientlist.api.model.custom.DiagnosisPatientInformationField;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -57,7 +61,8 @@ public class PatientInformation {
 
 	protected final Log LOG = LogFactory.getLog(this.getClass());
 
-	private Map<String, PatientInformationField<?>> fields = new HashMap<String, PatientInformationField<?>>();
+	private Map<String, IPatientInformationField<?>> fields =
+	        new HashMap<String, IPatientInformationField<?>>();
 
 	private ConceptService conceptService;
 
@@ -73,23 +78,25 @@ public class PatientInformation {
 		return this;
 	}
 
-	public Map<String, PatientInformationField<?>> getFields() {
+	public Map<String, IPatientInformationField<?>> getFields() {
 		return Collections.unmodifiableMap(fields);
 	}
 
-	public PatientInformationField<?> getField(String key) {
+	public IPatientInformationField<?> getField(String key) {
 		return fields.get(key);
 	}
 
 	private void loadFields() {
-		Map<String, PatientInformationField<?>> tempFields = new HashMap<String, PatientInformationField<?>>();
+		Map<String, IPatientInformationField<?>> tempFields = new HashMap<String, IPatientInformationField<?>>();
 
-		addField(tempFields, PATIENT_PREFIX, "birthdate", Date.class, new Func1<Patient, Object>() {
-			@Override
-			public Object apply(Patient patient) {
-				return patient.getGender();
-			}
-		}, PATIENT_PREFIX + ".birthdate");
+		addCustomField(tempFields,
+		    new BirthDatePatientInformationField(
+		            PATIENT_PREFIX, "birthdate", Date.class, new Func1<Patient, Object>() {
+			            @Override
+			            public Object apply(Patient patient) {
+				            return patient.getGender();
+			            }
+		            }, PATIENT_PREFIX + ".birthdate"));
 
 		addField(tempFields, PATIENT_PREFIX, "gender", boolean.class, new Func1<Patient, Object>() {
 			@Override
@@ -98,13 +105,15 @@ public class PatientInformation {
 			}
 		}, PATIENT_PREFIX + ".gender");
 
-		addField(tempFields, PATIENT_PREFIX, "age", Integer.class, new Func1<Patient, Object>() {
-			@Override
-			public Object apply(Patient patient) {
-				return patient.getAge();
-			}
-		},
-		    PATIENT_PREFIX + ".age");
+		addCustomField(tempFields, new AgePatientInformationField(
+		        PATIENT_PREFIX, "age", Integer.class,
+		        new Func1<Patient, Object>() {
+			        @Override
+			        public Object apply(Patient patient) {
+				        return patient.getAge();
+			        }
+		        },
+		        PATIENT_PREFIX + ".age"));
 
 		addField(tempFields, PATIENT_PREFIX, "givenName", String.class, new Func1<Patient, Object>() {
 			@Override
@@ -186,31 +195,33 @@ public class PatientInformation {
 			}
 		}, VISIT_PREFIX + ".visitType.name");
 
-		addField(tempFields, VISIT_PREFIX, "diagnosis", String.class, new Func1<Visit, Object>() {
-			@Override
-			public Object apply(Visit visit) {
-				String diagnosis = "";
-				Set<Encounter> encounters = visit.getEncounters();
-				if (encounters != null) {
-					for (Encounter encounter : encounters) {
-						if (encounter != null) {
-							Set<Obs> obs = encounter.getAllObs(false);
-							for (Obs observation : obs) {
-								if (observation != null) {
-									if (observation.getValueCoded() != null) {
-										diagnosis += observation.getValueCoded().getDisplayString() + ",";
-									} else if (StringUtils.isNotEmpty(observation.getValueText())) {
-										diagnosis += observation.getValueText() + ",";
-									}
-								}
-							}
-						}
-					}
-				}
+		addCustomField(tempFields,
+		    new DiagnosisPatientInformationField(
+		            VISIT_PREFIX, "diagnosis", String.class, new Func1<Visit, Object>() {
+			            @Override
+			            public Object apply(Visit visit) {
+				            String diagnosis = "";
+				            Set<Encounter> encounters = visit.getEncounters();
+				            if (encounters != null) {
+					            for (Encounter encounter : encounters) {
+						            if (encounter != null) {
+							            Set<Obs> obs = encounter.getAllObs(false);
+							            for (Obs observation : obs) {
+								            if (observation != null) {
+									            if (observation.getValueCoded() != null) {
+										            diagnosis += observation.getValueCoded().getDisplayString() + ",";
+									            } else if (StringUtils.isNotEmpty(observation.getValueText())) {
+										            diagnosis += observation.getValueText() + ",";
+									            }
+								            }
+							            }
+						            }
+					            }
+				            }
 
-				return StringUtils.removeEnd(diagnosis, ",");
-			}
-		}, VISIT_PREFIX + ".diagnosis");
+				            return StringUtils.removeEnd(diagnosis, ",");
+			            }
+		            }, VISIT_PREFIX + ".diagnosis"));
 
 		addField(tempFields, VISIT_PREFIX, "hasDiagnosis", String.class, new Func1<Visit, Object>() {
 			@Override
@@ -248,16 +259,22 @@ public class PatientInformation {
 		fields = tempFields;
 	}
 
-	private <T extends OpenmrsData> void addField(Map<String, PatientInformationField<?>> map, String prefix, String name,
+	private <T extends OpenmrsData> void addField(
+	        Map<String, IPatientInformationField<?>> map, String prefix, String name,
 	        Class<?> dataType, Func1<T, Object> getValueFunc, String mappingFieldName) {
-		PatientInformationField field = new PatientInformationField<T>(
+		PatientInformationField field = new PatientInformationField(
 		        prefix, name, dataType, getValueFunc, mappingFieldName);
 
 		map.put(prefix + "." + name, field);
 	}
 
-	private <T extends OpenmrsData> void addPatientAttributeField(Map<String, PatientInformationField<?>> map,
-	        String prefix,
+	private <T extends AbstractPatientListField> void addCustomField(
+	        Map<String, IPatientInformationField<?>> map, T instance) {
+		map.put(instance.getPrefix() + "." + instance.getName(), instance);
+	}
+
+	private <T extends OpenmrsData> void addPatientAttributeField(
+	        Map<String, IPatientInformationField<?>> map, String prefix,
 	        final PersonAttributeType attributeType, String mappingFieldName) {
 		Class<?> cls = null;
 		try {
@@ -282,7 +299,7 @@ public class PatientInformation {
 		}
 	}
 
-	private <T extends OpenmrsData & Customizable<?>> void addAttributeField(Map<String, PatientInformationField<?>> map,
+	private <T extends OpenmrsData & Customizable<?>> void addAttributeField(Map<String, IPatientInformationField<?>> map,
 	        String prefix, final AttributeType<T> attributeType, String mappingFieldName) {
 		Class<?> cls = null;
 		try {

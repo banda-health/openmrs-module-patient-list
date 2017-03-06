@@ -11,30 +11,39 @@
  *
  * Copyright (C) OpenHMIS.  All Rights Reserved.
  */
-package org.openmrs.module.patientlist.api.model;
+package org.openmrs.module.patientlist.api.util;
 
 import org.openmrs.OpenmrsData;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
+import org.openmrs.module.patientlist.api.model.IPatientListFieldOperatorType;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
- * Model class that represents an patient information field.
+ * Created by andrew on 3/6/17.
  */
-public class PatientInformationField<T extends OpenmrsData> extends AbstractPatientListField {
+public interface IPatientInformationField<T extends OpenmrsData>
+        extends IPatientListFieldOperatorType {
 
-	public PatientInformationField(String prefix, String name, Class<?> dataType,
-	    Func1<T, Object> valueFunc, String mappingFieldName) {
-		setPrefix(prefix);
-		setName(name);
-		setDataType(dataType);
-		setValueFunc(valueFunc);
-		setMappingFieldName(mappingFieldName);
-	}
+	String getPrefix();
 
-	@Override
-	public List<Object> getParameterValues() {
-		return new ArrayList<Object>();
-	}
+	void setPrefix(String prefix);
+
+	String getName();
+
+	void setName(String name);
+
+	Class<?> getDataType();
+
+	void setDataType(Class<?> dataType);
+
+	void setValueFunc(Func1<T, Object> func);
+
+	Object getValue(T source);
+
+	String getMappingFieldName();
+
+	void setMappingFieldName(String mappingFieldName);
+
+	List<Object> getParameterValues();
 }

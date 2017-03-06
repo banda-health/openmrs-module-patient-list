@@ -17,15 +17,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseMetadataDataServiceImpl;
 import org.openmrs.module.openhmis.commons.api.entity.security.IMetadataAuthorizationPrivileges;
-import org.openmrs.module.patientlist.api.IPatientListService;
-import org.openmrs.module.patientlist.api.model.PatientList;
+import org.openmrs.module.patientlist.api.IPatientListConditionDataService;
+import org.openmrs.module.patientlist.api.model.PatientListCondition;
 import org.openmrs.module.patientlist.api.security.BasicMetadataAuthorizationPrivileges;
 
 /**
- * Data service implementation class for {@link PatientList}'s.
+ * Data service implementation class for {@link PatientListCondition}'s.
  */
-public class PatientListServiceImpl extends BaseMetadataDataServiceImpl<PatientList> implements
-        IPatientListService {
+public class PatientListConditionDataServiceImpl extends BaseMetadataDataServiceImpl<PatientListCondition>
+        implements IPatientListConditionDataService {
+
 	protected final Log LOG = LogFactory.getLog(this.getClass());
 
 	@Override
@@ -34,8 +35,7 @@ public class PatientListServiceImpl extends BaseMetadataDataServiceImpl<PatientL
 	}
 
 	@Override
-	protected void validate(PatientList object) {
+	protected void validate(PatientListCondition object) {
 		return;
 	}
-
 }

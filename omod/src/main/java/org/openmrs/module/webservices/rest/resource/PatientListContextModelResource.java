@@ -15,21 +15,20 @@ package org.openmrs.module.webservices.rest.resource;
 
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
-import org.openmrs.module.patientlist.api.IPatientListDataService;
-import org.openmrs.module.patientlist.api.IPatientListService;
-import org.openmrs.module.patientlist.api.model.PatientListData;
+import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
 /**
- * REST resource representing a {@link PatientListData}
+ * REST resource representing a {@link PatientListContextModel}
  */
-@Resource(name = ModuleRestConstants.PATIENT_LIST_DATA_RESOURCE, supportedClass = PatientListData.class,
+@Resource(name = ModuleRestConstants.PATIENT_LIST_DATA_RESOURCE, supportedClass = PatientListContextModel.class,
         supportedOpenmrsVersions = { "1.9.*", "1.10.*", "1.11.*", "1.12.*" })
-@Handler(supports = { PatientListData.class }, order = 0)
-public class PatientListDataResource extends BaseRestObjectResource<PatientListData> {
+@Handler(supports = { PatientListContextModel.class }, order = 0)
+public class PatientListContextModelResource extends BaseRestObjectResource<PatientListContextModel> {
 
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
@@ -43,13 +42,13 @@ public class PatientListDataResource extends BaseRestObjectResource<PatientListD
 	}
 
 	@Override
-	public PatientListData newDelegate() {
-		return new PatientListData();
+	public PatientListContextModel newDelegate() {
+		return new PatientListContextModel();
 	}
 
 	@Override
-	public Class<? extends IObjectDataService<PatientListData>> getServiceClass() {
-		return IPatientListDataService.class;
+	public Class<? extends IObjectDataService<PatientListContextModel>> getServiceClass() {
+		return IPatientListContextModelDataService.class;
 	}
 
 }

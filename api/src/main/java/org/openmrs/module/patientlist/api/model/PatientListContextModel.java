@@ -20,7 +20,7 @@ import org.openmrs.Visit;
 /**
  * Model class that represents patient list data.
  */
-public class PatientListData extends BaseOpenmrsData {
+public class PatientListContextModel extends BaseOpenmrsData {
 
 	private Patient patient;
 	private Visit visit;
@@ -28,9 +28,9 @@ public class PatientListData extends BaseOpenmrsData {
 	private String headerContent;
 	private String bodyContent;
 
-	public PatientListData() {}
+	public PatientListContextModel() {}
 
-	public PatientListData(Patient patient, Visit visit, PatientList patientList) {
+	public PatientListContextModel(Patient patient, Visit visit, PatientList patientList) {
 		this.patient = patient;
 		this.visit = visit;
 		this.patientList = patientList;

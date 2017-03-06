@@ -16,7 +16,7 @@ package org.openmrs.module.webservices.rest.resource;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.openhmis.commons.api.entity.IMetadataDataService;
-import org.openmrs.module.patientlist.api.IPatientListService;
+import org.openmrs.module.patientlist.api.IPatientListDataService;
 import org.openmrs.module.patientlist.api.model.PatientList;
 import org.openmrs.module.patientlist.api.model.PatientListCondition;
 import org.openmrs.module.patientlist.api.model.PatientListOrder;
@@ -120,7 +120,7 @@ public class PatientListResource extends BaseRestMetadataResource<PatientList> {
 
 	@Override
 	public Class<? extends IMetadataDataService<PatientList>> getServiceClass() {
-		return IPatientListService.class;
+		return IPatientListDataService.class;
 	}
 
 	@Override
