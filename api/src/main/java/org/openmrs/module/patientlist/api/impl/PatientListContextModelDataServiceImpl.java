@@ -23,15 +23,16 @@ import org.openmrs.Visit;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseObjectDataServiceImpl;
 import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.api.model.PatientList;
 import org.openmrs.module.patientlist.api.model.PatientListCondition;
-import org.openmrs.module.patientlist.api.model.PatientListOrder;
 import org.openmrs.module.patientlist.api.model.PatientListOperator;
-import org.openmrs.module.patientlist.api.model.PatientListContextModel;
+import org.openmrs.module.patientlist.api.model.PatientListOrder;
 import org.openmrs.module.patientlist.api.util.IPatientInformationField;
 import org.openmrs.module.patientlist.api.security.BasicObjectAuthorizationPrivileges;
 import org.openmrs.module.patientlist.api.util.ConvertPatientListOperators;
 import org.openmrs.module.patientlist.api.util.PatientInformation;
+import org.openmrs.module.patientlist.api.util.PatientListHQLBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,53 +111,7 @@ public class PatientListContextModelDataServiceImpl extends
 	private String constructHqlQuery(PatientList patientList, List<Object> paramValues) {
 		StringBuilder hql = new StringBuilder();
 		if (patientList != null && patientList.getPatientListConditions() != null) {
-			if (searchField(patientList.getPatientListConditions(), "v.")
-			        || searchField(patientList.getPatientListConditions(), "hasActiveVisit")
-			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis")) {
-				// join visit and patient tables
-				hql.append("select v from Visit v inner join v.patient as p ");
-			} else {
-				// use only the patient table
-				hql.append("select p from Patient p ");
-			}
-
-			// only join person attributes and attribute types if required to
-			if (searchField(patientList.getPatientListConditions(), "p.attr")
-			        || searchField(patientList.getOrdering(), "p.attr")) {
-				hql.append("inner join p.attributes as attr ");
-				hql.append("inner join attr.attributeType as attrType ");
-			}
-
-			// only join visit attributes and attribute types if required to
-			if (searchField(patientList.getPatientListConditions(), "v.attr")
-			        || searchField(patientList.getOrdering(), "v.attr")) {
-				hql.append("inner join v.attributes as vattr ");
-				hql.append("inner join vattr.attributeType as vattrType ");
-			}
-
-			if (searchField(patientList.getPatientListConditions(), "v.diagnosis")
-			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis")) {
-				hql.append("inner join v.encounters as encounter ");
-				hql.append("inner join encounter.obs as ob ");
-			}
-
-			// only join names if required
-			if (searchMappingField(patientList.getPatientListConditions(), "p.names")
-			        || searchMappingField(patientList.getOrdering(), "p.names")) {
-				hql.append("inner join p.names as pnames ");
-			}
-
-			// only join addresses if required
-			if (searchMappingField(patientList.getPatientListConditions(), "p.addresses")
-			        || searchMappingField(patientList.getOrdering(), "p.addresses")) {
-				hql.append("inner join p.addresses as paddresses ");
-			}
-
-			// only join identifiers if required
-			if (searchMappingField(patientList.getPatientListConditions(), "p.identifiers")
-			        || searchMappingField(patientList.getOrdering(), "p.identifiers")) {
-				hql.append("inner join p.identifiers as pidentifiers ");
-			}
+			hql.append(PatientListHQLBuilder.constructBaseHQL(patientList));
 		}
 
 		// add where clause
@@ -195,8 +150,6 @@ public class PatientListContextModelDataServiceImpl extends
 			if (condition.getOperator() == null) {
 				throw new RuntimeException("operator cannot be null");
 			}
-
-			//String operator  = ConvertPatientListOperators.convertOperator(condition.getOperator());
 
 			IPatientInformationField patientInformationField =
 			        PatientInformation.getInstance().getField(condition.getField());
@@ -364,7 +317,7 @@ public class PatientListContextModelDataServiceImpl extends
 				}
 
 				String mappingFieldName = PatientInformation.getInstance().
-				        getField(order.getField()).getMappingFieldName();
+				        getField(order.getField()).getMappingField().getMappingFieldName();
 
 				// attributes
 				if (StringUtils.contains(order.getField(), "p.attr.")) {
@@ -423,69 +376,6 @@ public class PatientListContextModelDataServiceImpl extends
 
 		//remove trailing coma.
 		return StringUtils.removeEnd(hql.toString(), ",");
-	}
-
-	/**
-	 * Searches for a given field in the patient list conditions and ordering.
-	 * @param list
-	 * @param search
-	 * @return
-	 */
-	private <T> boolean searchField(List<T> list, String search) {
-		for (T t : list) {
-			if (t == null) {
-				continue;
-			}
-
-			String field = null;
-			if (t instanceof PatientListCondition) {
-				field = ((PatientListCondition)t).getField();
-			} else if (t instanceof PatientListOrder) {
-				field = ((PatientListOrder)t).getField();
-			}
-
-			if (field == null) {
-				continue;
-			}
-
-			if (StringUtils.contains(field, search)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private <T> boolean searchMappingField(List<T> list, String search) {
-		for (T t : list) {
-			if (t == null) {
-				continue;
-			}
-
-			String field = null;
-			if (t instanceof PatientListCondition) {
-				field = ((PatientListCondition)t).getField();
-			} else if (t instanceof PatientListOrder) {
-				field = ((PatientListOrder)t).getField();
-			}
-
-			if (field == null) {
-				continue;
-			}
-
-			IPatientInformationField patientInformationField =
-			        PatientInformation.getInstance().getField(field);
-			if (patientInformationField == null) {
-				continue;
-			}
-
-			String matchField = patientInformationField.getMappingFieldName();
-			if (StringUtils.contains(matchField, search)) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**

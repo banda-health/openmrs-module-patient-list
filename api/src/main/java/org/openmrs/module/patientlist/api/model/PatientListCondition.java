@@ -18,7 +18,7 @@ import org.openmrs.module.openhmis.commons.api.entity.model.BaseSerializableOpen
 /**
  * Model class that represents a list condition.
  */
-public class PatientListCondition extends BaseSerializableOpenmrsMetadata {
+public class PatientListCondition extends BaseSerializableOpenmrsMetadata implements IBasePatientList {
 
 	private Integer patientListConditionId;
 	private PatientList patientList;
@@ -37,18 +37,22 @@ public class PatientListCondition extends BaseSerializableOpenmrsMetadata {
 		this.patientListConditionId = id;
 	}
 
+	@Override
 	public PatientList getPatientList() {
 		return patientList;
 	}
 
+	@Override
 	public void setPatientList(PatientList patientList) {
 		this.patientList = patientList;
 	}
 
+	@Override
 	public String getField() {
 		return field;
 	}
 
+	@Override
 	public void setField(String field) {
 		this.field = field;
 	}

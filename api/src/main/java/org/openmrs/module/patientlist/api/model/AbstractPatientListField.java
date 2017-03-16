@@ -30,9 +30,10 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 
 	private String prefix;
 	private String name;
-	private String mappingFieldName;
+	private PatientListMappingField mappingField;
 	private Class<?> dataType;
 	private Func1<T, Object> getValueFunc;
+	private T entityType;
 
 	public String getPrefix() {
 		return prefix;
@@ -58,6 +59,14 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 		this.dataType = dataType;
 	}
 
+	public void setEntityType(T entityType) {
+		this.entityType = entityType;
+	}
+
+	public T getEntityType() {
+		return entityType;
+	}
+
 	public void setValueFunc(Func1<T, Object> func) {
 		this.getValueFunc = func;
 	}
@@ -66,17 +75,17 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 		return getValueFunc.apply(source);
 	}
 
-	public String getMappingFieldName() {
-		return mappingFieldName;
+	public PatientListMappingField getMappingField() {
+		return mappingField;
 	}
 
-	public void setMappingFieldName(String mappingFieldName) {
-		this.mappingFieldName = mappingFieldName;
+	public void setMappingField(PatientListMappingField mappingField) {
+		this.mappingField = mappingField;
 	}
 
 	private String getDefaultOperatorImplementation(String searchValue, String operator) {
 		StringBuilder hql = new StringBuilder();
-		hql.append(getMappingFieldName());
+		hql.append(getMappingField().getMappingFieldName());
 		hql.append(" ");
 		hql.append(operator);
 		hql.append(" ? ");
@@ -88,7 +97,7 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 	@Override
 	public String between(String searchValue) {
 		StringBuilder hql = new StringBuilder();
-		hql.append(getMappingFieldName());
+		hql.append(getMappingField().getMappingFieldName());
 		hql.append(" BETWEEN ? AND ? ");
 		if (StringUtils.contains(searchValue, "|")) {
 			String[] splitSearchValues = searchValue.split("|");

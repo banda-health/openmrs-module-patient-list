@@ -18,7 +18,7 @@ import org.openmrs.module.openhmis.commons.api.entity.model.BaseSerializableOpen
 /**
  * Model class that represents the ordering of patients in a list.
  */
-public class PatientListOrder extends BaseSerializableOpenmrsMetadata {
+public class PatientListOrder extends BaseSerializableOpenmrsMetadata implements IBasePatientList {
 
 	private Integer patientListOrderId;
 	private PatientList patientList;
@@ -36,18 +36,22 @@ public class PatientListOrder extends BaseSerializableOpenmrsMetadata {
 		this.patientListOrderId = id;
 	}
 
+	@Override
 	public PatientList getPatientList() {
 		return patientList;
 	}
 
+	@Override
 	public void setPatientList(PatientList patientList) {
 		this.patientList = patientList;
 	}
 
+	@Override
 	public String getField() {
 		return field;
 	}
 
+	@Override
 	public void setField(String field) {
 		this.field = field;
 	}

@@ -25,12 +25,13 @@ import java.util.ArrayList;
 public class PatientInformationField<T extends OpenmrsData> extends AbstractPatientListField {
 
 	public PatientInformationField(String prefix, String name, Class<?> dataType,
-	    Func1<T, Object> valueFunc, String mappingFieldName) {
+	    Func1<T, Object> valueFunc, PatientListMappingField mappingFieldName, T entityType) {
 		setPrefix(prefix);
 		setName(name);
 		setDataType(dataType);
 		setValueFunc(valueFunc);
-		setMappingFieldName(mappingFieldName);
+		setMappingField(mappingFieldName);
+		setEntityType(entityType);
 	}
 
 	@Override

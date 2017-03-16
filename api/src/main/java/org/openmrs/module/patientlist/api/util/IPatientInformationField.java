@@ -16,11 +16,12 @@ package org.openmrs.module.patientlist.api.util;
 import org.openmrs.OpenmrsData;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
 import org.openmrs.module.patientlist.api.model.IPatientListFieldOperatorType;
+import org.openmrs.module.patientlist.api.model.PatientListMappingField;
 
 import java.util.List;
 
 /**
- * Created by andrew on 3/6/17.
+ * Base {@PatientInformationField} fields
  */
 public interface IPatientInformationField<T extends OpenmrsData>
         extends IPatientListFieldOperatorType {
@@ -39,11 +40,15 @@ public interface IPatientInformationField<T extends OpenmrsData>
 
 	void setValueFunc(Func1<T, Object> func);
 
+	T getEntityType();
+
+	void setEntityType(T entityType);
+
 	Object getValue(T source);
 
-	String getMappingFieldName();
+	PatientListMappingField getMappingField();
 
-	void setMappingFieldName(String mappingFieldName);
+	void setMappingField(PatientListMappingField mappingField);
 
 	List<Object> getParameterValues();
 }
