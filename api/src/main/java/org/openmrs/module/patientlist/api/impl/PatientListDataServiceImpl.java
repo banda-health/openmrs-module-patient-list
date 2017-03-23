@@ -226,21 +226,45 @@ public class PatientListDataServiceImpl extends
 							operator = StringUtils.replace(operator, ">", "<");
 						}
 
-						hql.append(operator);
-						hql.append("");
-						hql.append(" ? ");
 						if (!StringUtils.containsIgnoreCase(operator, "null") && !StringUtils
 						        .containsIgnoreCase(operator, "BETWEEN")) {
-							if (StringUtils.isNumeric(condition.getValue())) {
-								int age = Integer.valueOf(condition.getValue());
-								Calendar calendar = Calendar.getInstance();
-								calendar.add(Calendar.YEAR, -age);
-								paramValues.add(PatientListDateUtil.simpleDateFormat.parse(
-								        PatientListDateUtil.simpleDateFormat.format(calendar.getTime())));
+							if (StringUtils.equals(operator, "=")) {
+								operator = StringUtils.replace(operator, "=", "BETWEEN");
+								hql.append(" ");
+								hql.append(operator);
+								hql.append(" ");
+								hql.append(" ? ");
+								if (StringUtils.isNumeric(condition.getValue())) {
+									int age = Integer.valueOf(condition.getValue());
+									Calendar calendar = Calendar.getInstance();
+									calendar.add(Calendar.YEAR, -age);
+									Calendar calendar1 = Calendar.getInstance();
+									calendar1.add(Calendar.YEAR, -(age + 1));
+									System.out.println(calendar1.getTime());
+									paramValues.add(PatientListDateUtil.simpleDateFormat.parse(
+									        PatientListDateUtil.simpleDateFormat.format(calendar1.getTime())));
+									hql.append(" AND ? ");
+									paramValues.add(PatientListDateUtil.simpleDateFormat.parse(
+									        PatientListDateUtil.simpleDateFormat.format(calendar.getTime())));
+								}
+							} else {
+								hql.append(" ");
+								hql.append(operator);
+								hql.append(" ? ");
+								if (StringUtils.isNumeric(condition.getValue())) {
+									int age = Integer.valueOf(condition.getValue());
+									Calendar calendar = Calendar.getInstance();
+									calendar.add(Calendar.YEAR, -age);
+									paramValues.add(PatientListDateUtil.simpleDateFormat.parse(
+									        PatientListDateUtil.simpleDateFormat.format(calendar.getTime())));
+								}
 							}
 						} else {
 							try {
 								// BETWEEN age should be separated by |
+								hql.append(operator);
+								hql.append("");
+								hql.append(" ? ");
 								if (StringUtils.contains(condition.getValue(), "|")) {
 									String[] numbers = StringUtils.split(condition.getValue(), "|");
 									int ageOne = Integer.valueOf(numbers[0]);
