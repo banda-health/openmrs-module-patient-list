@@ -35,7 +35,7 @@ public class ConceptAnswerResourceController {
 			for (ConceptAnswer conceptAnswer : concept.getAnswers()) {
 				SimpleObject result = new SimpleObject();
 				result.put("uuid", conceptAnswer.getUuid());
-				result.put("display", String.valueOf(conceptAnswer.getAnswerConcept().getName().getName()));
+				result.put("display", conceptAnswer.getAnswerConcept().getName().getName());
 				values.add(result);
 			}
 
