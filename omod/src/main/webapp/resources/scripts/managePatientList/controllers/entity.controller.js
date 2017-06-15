@@ -356,7 +356,6 @@
 				var conceptAnswers = data.results;
 				for (var i = 0; i < conceptAnswers.length; i++) {
 					conceptAnswers[i].value = conceptAnswers[i].uuid;
-					conceptAnswers[i].display = conceptAnswers[i].name;
 				}
 				$scope.dropDownEntries = conceptAnswers;
 			}
