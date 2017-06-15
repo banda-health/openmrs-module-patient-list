@@ -23,14 +23,10 @@
 	</aware_of_modules>
 
 	<require_modules>
-		<require_module version="2.6">org.openmrs.module.htmlformentry</require_module>
-		<require_module version="1.5">org.openmrs.module.htmlformentryui</require_module>
-		<require_module version="1.2">org.openmrs.module.visitdocumentsui</require_module>
 		<require_module version="2.9">org.openmrs.module.webservices.rest</require_module>
 		<require_module version="3.0">org.openmrs.module.openhmis.commons</require_module>
 		<require_module version="1.11.1">org.openmrs.module.emrapi</require_module>
 		<require_module version="2.3">org.openmrs.module.referenceapplication</require_module>
-		<require_module version="1.0">org.openmrs.module.appui</require_module>
 	</require_modules>
 
 	<!-- Module Activator -->
