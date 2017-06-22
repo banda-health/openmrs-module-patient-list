@@ -212,7 +212,8 @@
 						
 					} else if (fieldDescription.dataType == "org.openmrs.module.coreapps.customdatatype.CodedConceptDatatype"
 						|| fieldDescription.attributeTypeConfig != null){
-						PatientListRestfulService.loadConceptAnswers(fieldDescription.attributeTypeConfig, self.onLoadConceptAnswersSuccessful);
+						PatientListRestfulService.loadConceptAnswers(fieldDescription.attributeTypeConfig,
+							PATIENT_LIST_MODULE_NAME, self.onLoadConceptAnswersSuccessful);
 						listCondition.inputType = "dropDownInput";
 					} else {
 						listCondition.inputType = "textInput";

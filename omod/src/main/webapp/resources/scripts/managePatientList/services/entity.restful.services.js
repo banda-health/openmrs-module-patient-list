@@ -44,12 +44,14 @@
 		 * @param module_name
 		 * @param uuid
 		 */
-		function loadConceptAnswers(uuid, onLoadConceptAnswersSuccessful) {
+		function loadConceptAnswers(uuid, module_name, onLoadConceptAnswersSuccessful) {
 			var requestParams = [];
 			requestParams['rest_entity_name'] = 'conceptanswer';
 			requestParams['conceptUuid'] = uuid;
+			EntityRestFactory.setBaseUrl('custom');
 			EntityRestFactory.loadEntities(requestParams,
 				onLoadConceptAnswersSuccessful, errorCallback);
+			EntityRestFactory.setBaseUrl(module_name);
 		}
 		
 		/**
