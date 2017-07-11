@@ -15,6 +15,10 @@
 package org.openmrs.module.patientlist.api.util;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.patientlist.api.model.PatientInformationField;
 import org.openmrs.module.patientlist.api.model.PatientListData;
 import org.openmrs.module.patientlist.api.model.PatientList;
@@ -23,6 +27,7 @@ import org.openmrs.module.patientlist.api.model.PatientList;
  * Implement {@link PatientList} template service methods
  */
 public class PatientListTemplateUtil {
+	private static Log LOG = LogFactory.getLog(PatientListTemplateUtil.class);
 
 	public static String applyTemplate(String template, PatientListData patientListData) {
 		String[] fields = StringUtils.substringsBetween(template, "{", "}");
@@ -36,6 +41,17 @@ public class PatientListTemplateUtil {
 						value = patientInformationField.getValue(patientListData.getPatient());
 					} else if (patientListData.getVisit() != null && StringUtils.contains(field, "v.")) {
 						value = patientInformationField.getValue(patientListData.getVisit());
+						if (value != null && StringUtils.contains(field, "v.attr.")) {
+							try {
+								ConceptAnswer conceptAnswer = Context.getConceptService()
+								        .getConceptAnswerByUuid((String)value);
+								if (conceptAnswer != null) {
+									value = conceptAnswer.getAnswerConcept().getName().getName();
+								}
+							} catch (Exception ex) {
+								LOG.error(ex);
+							}
+						}
 					}
 				}
 
