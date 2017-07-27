@@ -25,6 +25,7 @@ import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
 import org.openmrs.module.webservices.rest.web.annotation.PropertySetter;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
+import org.openmrs.module.webservices.rest.web.representation.CustomRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
@@ -41,6 +42,10 @@ public class PatientListResource extends BaseRestMetadataResource<PatientList> {
 
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
+		if (rep instanceof CustomRepresentation) {
+			return null;
+		}
+
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
 		description.addProperty("headerTemplate");
 		description.addProperty("bodyTemplate");

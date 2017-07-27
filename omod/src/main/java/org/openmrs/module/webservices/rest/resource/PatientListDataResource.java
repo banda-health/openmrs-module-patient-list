@@ -20,6 +20,9 @@ import org.openmrs.module.patientlist.api.IPatientListService;
 import org.openmrs.module.patientlist.api.model.PatientListData;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
+import org.openmrs.module.webservices.rest.web.representation.CustomRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
+import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
@@ -33,6 +36,10 @@ public class PatientListDataResource extends BaseRestObjectResource<PatientListD
 
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
+		if (rep instanceof CustomRepresentation) {
+			return null;
+		}
+
 		DelegatingResourceDescription description = super.getRepresentationDescription(rep);
 		description.addProperty("patient", Representation.DEFAULT);
 		description.addProperty("visit", Representation.DEFAULT);
