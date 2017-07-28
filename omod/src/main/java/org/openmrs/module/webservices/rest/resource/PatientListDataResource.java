@@ -16,13 +16,10 @@ package org.openmrs.module.webservices.rest.resource;
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
 import org.openmrs.module.patientlist.api.IPatientListDataService;
-import org.openmrs.module.patientlist.api.IPatientListService;
 import org.openmrs.module.patientlist.api.model.PatientListData;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.CustomRepresentation;
-import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
-import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
