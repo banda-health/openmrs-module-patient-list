@@ -51,13 +51,7 @@
 					var listConditionModel = new PatientListConditionModel(listCondition.field, listCondition.operator,
 						value, listCondition.inputType, listCondition.conditionOrder, listCondition.valueRef, listCondition.dataType);
 					listConditionModel.setSelected(true);
-					
-					for (var r = 0; r < $scope.fields.length; r++) {
-						if ($scope.fields[r].field == listCondition.field) {
-							listConditionModel.setDataType($scope.fields[r].desc.datatype);
-							$scope.valueInputConditions($scope.fields[r].desc, listCondition);
-						}
-					}
+
 					if (listCondition.dataType == "java.util.Date") {
 						onChangeDatePicker($scope.onListConditionDateSuccessfulCallback, undefined, listCondition);
 					} else if (listCondition.inputType == "conceptInput") {
@@ -88,6 +82,14 @@
 					
 					listConditionModel.setInputType(listCondition.inputType);
 					listConditionModel.setId(listCondition.field + "_" + listCondition.value);
+
+					for (var r = 0; r < $scope.fields.length; r++) {
+						if ($scope.fields[r].field == listCondition.field) {
+							listConditionModel.setDataType($scope.fields[r].desc.datatype);
+							$scope.valueInputConditions($scope.fields[r].desc, listConditionModel);
+						}
+					}
+
 					populatedListConditions.push(listConditionModel);
 					
 					$scope.listConditions = populatedListConditions;
