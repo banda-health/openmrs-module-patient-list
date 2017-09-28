@@ -77,7 +77,7 @@ public class PatientListDataSearchHandler implements SearchHandler {
 
 		PatientList patientList = patientListService.getByUuid(uuid);
 		if (patientList == null) {
-			LOG.error("PatientList with given uuid does not exist");
+			LOG.error("PatientList with uuid '" + uuid + "' does not exist");
 			return new EmptySearchResult();
 		}
 
