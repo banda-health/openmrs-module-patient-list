@@ -560,9 +560,9 @@ public class PatientListDataServiceImpl extends
 
 				// attributes
 				if (StringUtils.contains(order.getField(), "p.attr.")) {
-					mappingFieldName = "attrType.name";
+					mappingFieldName = "attr.value";
 				} else if (StringUtils.contains(order.getField(), "v.attr.")) {
-					mappingFieldName = "vattrType.name";
+					mappingFieldName = "vattr.valueReference";
 				} else if (StringUtils.contains(order.getField(), "p.age")) {
 					mappingFieldName = "p.birthdate";
 				}
