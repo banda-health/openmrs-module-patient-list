@@ -144,9 +144,9 @@ public class PatientListDataServiceImpl extends
 	        PatientList patientList, List<Object> paramValues, boolean countQuery) {
 		StringBuilder hql = new StringBuilder();
 		if (patientList != null && patientList.getPatientListConditions() != null) {
-			if (searchField(patientList.getPatientListConditions(), "v.", false)
-			        || searchField(patientList.getPatientListConditions(), "hasActiveVisit", false)
-			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis", false)) {
+			if (searchField(patientList.getPatientListConditions(), "v.", false) != null
+			        || searchField(patientList.getPatientListConditions(), "hasActiveVisit", false) != null
+			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis", false) != null) {
 				// join visit and patient tables
 				if (countQuery) {
 					hql.append("select count(v) from Visit v inner join v.patient as p ");
@@ -163,40 +163,35 @@ public class PatientListDataServiceImpl extends
 			}
 
 			// only join person attributes and attribute types if required to
-			if (searchField(patientList.getPatientListConditions(), "p.attr", false)
-			        || searchField(patientList.getOrdering(), "p.attr", false)) {
+			if (searchField(patientList.getPatientListConditions(), "p.attr", false) != null
+			        || searchField(patientList.getOrdering(), "p.attr", false) != null) {
 				hql.append("inner join p.attributes as attr ");
 				hql.append("inner join attr.attributeType as attrType ");
 			}
 
-			// only join visit attributes and attribute types if required to
-			if (searchField(patientList.getPatientListConditions(), "v.attr", false)
-			        || searchField(patientList.getOrdering(), "v.attr", false)) {
-				hql.append("inner join v.attributes as vattr ");
-				hql.append("inner join vattr.attributeType as vattrType ");
-			}
+			hql.append(applyVisitAttributeJoins(patientList));
 
-			if (searchField(patientList.getPatientListConditions(), "v.diagnosis", false)
-			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis", false)) {
+			if (searchField(patientList.getPatientListConditions(), "v.diagnosis", false) != null
+			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis", false) != null) {
 				hql.append("inner join v.encounters as encounter ");
 				hql.append("inner join encounter.obs as ob ");
 			}
 
 			// only join names if required
-			if (searchField(patientList.getPatientListConditions(), "p.names", true)
-			        || searchField(patientList.getOrdering(), "p.names", true)) {
+			if (searchField(patientList.getPatientListConditions(), "p.names", true) != null
+			        || searchField(patientList.getOrdering(), "p.names", true) != null) {
 				hql.append("inner join p.names as pnames ");
 			}
 
 			// only join addresses if required
-			if (searchField(patientList.getPatientListConditions(), "p.addresses", true)
-			        || searchField(patientList.getOrdering(), "p.addresses", true)) {
+			if (searchField(patientList.getPatientListConditions(), "p.addresses", true) != null
+			        || searchField(patientList.getOrdering(), "p.addresses", true) != null) {
 				hql.append("inner join p.addresses as paddresses ");
 			}
 
 			// only join identifiers if required
-			if (searchField(patientList.getPatientListConditions(), "p.identifiers", true)
-			        || searchField(patientList.getOrdering(), "p.identifiers", true)) {
+			if (searchField(patientList.getPatientListConditions(), "p.identifiers", true) != null
+			        || searchField(patientList.getOrdering(), "p.identifiers", true) != null) {
 				hql.append("inner join p.identifiers as pidentifiers ");
 			}
 		}
@@ -206,7 +201,7 @@ public class PatientListDataServiceImpl extends
 
 		// apply patient list conditions
 		hql.append("(");
-		hql.append(applyPatientListConditions(patientList.getPatientListConditions(), paramValues));
+		hql.append(applyPatientListConditions(patientList, paramValues));
 		hql.append(")");
 
 		//apply ordering if any
@@ -220,13 +215,14 @@ public class PatientListDataServiceImpl extends
 	/**
 	 * Parse patient list conditions and add create sub queries to be added on the main HQL query. Parameter search values
 	 * will be stored separately and later set when running query.
-	 * @param patientListConditions
+	 * @param patientList
 	 * @param paramValues
 	 * @return
 	 */
-	private String applyPatientListConditions(List<PatientListCondition> patientListConditions,
+	private String applyPatientListConditions(PatientList patientList,
 	        List<Object> paramValues) {
 		int count = 0;
+		List<PatientListCondition> patientListConditions = patientList.getPatientListConditions();
 		int len = patientListConditions.size();
 		StringBuilder hql = new StringBuilder();
 		// apply conditions
@@ -245,7 +241,7 @@ public class PatientListDataServiceImpl extends
 				if ((StringUtils.contains(condition.getField(), "p.attr.")
 				|| StringUtils.contains(condition.getField(), "v.attr."))) {
 					hql.append(createAttributeSubQueries(condition, paramValues));
-					if (!searchField(patientListConditions, "p.hasActiveVisit", false)) {
+					if (searchField(patientListConditions, "p.hasActiveVisit", false) == null) {
 						join = " OR ";
 					}
 				} else if (StringUtils.contains(mappingFieldName, "p.names.")
@@ -405,6 +401,15 @@ public class PatientListDataServiceImpl extends
 			}
 		}
 
+		String visitAttributeOrderField = searchField(patientList.getOrdering(), "v.attr", false);
+		if (!StringUtils.contains(hql.toString(), "v.attr") && visitAttributeOrderField != null) {
+			String alias = getVisitAttributeAlias(visitAttributeOrderField);
+			hql.append(" AND ");
+			hql.append(alias + ".voided != true AND ");
+			hql.append(alias + "Type.name = ? ");
+			paramValues.add(visitAttributeOrderField.split("v\\.attr\\.")[1]);
+		}
+
 		return hql.toString();
 	}
 
@@ -432,13 +437,14 @@ public class PatientListDataServiceImpl extends
 				hql.append(operator);
 			}
 		} else if (StringUtils.contains(condition.getField(), "v.attr.")) {
-			hql.append("(vattrType.name = ? AND vattr.voided != true AND ");
+			String alias = getVisitAttributeAlias(condition.getField());
+			hql.append("(" + alias + "Type.name = ? AND " + alias + ".voided != true AND ");
 			if (StringUtils.equalsIgnoreCase(operator, "exists")) {
-				hql.append("vattr is not null");
+				hql.append(alias + " is not null");
 			} else if (StringUtils.equalsIgnoreCase(operator, "not exists")) {
-				hql.append("vattr is null");
+				hql.append(alias + " is null");
 			} else {
-				hql.append("vattr.valueReference ");
+				hql.append(alias + ".valueReference ");
 				hql.append(operator);
 			}
 		}
@@ -562,7 +568,8 @@ public class PatientListDataServiceImpl extends
 				if (StringUtils.contains(order.getField(), "p.attr.")) {
 					mappingFieldName = "attr.value";
 				} else if (StringUtils.contains(order.getField(), "v.attr.")) {
-					mappingFieldName = "cast(vattr.valueReference as integer)";
+					mappingFieldName = "cast(" + getVisitAttributeAlias(order.getField());
+					mappingFieldName += ".valueReference as integer)";
 				} else if (StringUtils.contains(order.getField(), "p.age")) {
 					mappingFieldName = "p.birthdate";
 				}
@@ -623,7 +630,7 @@ public class PatientListDataServiceImpl extends
 	 * @param search
 	 * @return
 	 */
-	private <T extends IBasePatientList> boolean searchField(
+	private <T extends IBasePatientList> String searchField(
 	        List<T> list, String search, boolean mappingField) {
 		for (T t : list) {
 			if (t == null) {
@@ -645,13 +652,46 @@ public class PatientListDataServiceImpl extends
 
 				String matchField = patientInformationField.getMappingFieldName();
 				if (StringUtils.contains(matchField, search)) {
-					return true;
+					return matchField;
 				}
 			} else if (StringUtils.contains(field, search)) {
-				return true;
+				return field;
 			}
 		}
 
-		return false;
+		return null;
 	}
+
+	private String applyVisitAttributeJoins(PatientList patientList) {
+		StringBuilder hql = new StringBuilder();
+		List<String> visitAttributeJoins = new ArrayList<String>();
+		hql.append(applyVisitAttributeJoins(patientList.getPatientListConditions(), visitAttributeJoins));
+		hql.append(applyVisitAttributeJoins(patientList.getOrdering(), visitAttributeJoins));
+
+		return hql.toString();
+	}
+
+	private <T extends IBasePatientList> String applyVisitAttributeJoins(
+	        List<T> list, List<String> visitAttributeJoins) {
+		StringBuilder hql = new StringBuilder();
+		for (T field : list) {
+			if (StringUtils.contains(field.getField(), "v.attr")) {
+				String alias = getVisitAttributeAlias(field.getField());
+				if (!visitAttributeJoins.contains(alias)) {
+					hql.append(" inner join v.attributes as ");
+					hql.append(alias);
+					hql.append(" inner join ");
+					hql.append(alias + ".attributeType as " + alias + "Type ");
+					visitAttributeJoins.add(alias);
+				}
+			}
+		}
+
+		return hql.toString();
+	}
+
+	private String getVisitAttributeAlias(String field) {
+		return field.split("v\\.attr\\.")[1].replaceAll(" ", "");
+	}
+
 }
