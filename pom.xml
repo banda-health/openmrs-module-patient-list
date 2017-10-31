@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientlist</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>Patient List</name>
 	<description>Module that provides dynamic patient list functionality.</description>
@@ -15,7 +14,8 @@
 		<repository>
 			<id>openmrs-repo</id>
 			<name>Modules</name>
-			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+			<!-- <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>-->
+			<url>https://openmrs.jfrog.io/openmrs/modules/</url>
 		</repository>
 		<snapshotRepository>
 			<id>openhmis-repo</id>
@@ -28,7 +28,8 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-patient-list.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-patient-list.git</developerConnection>
 		<url>https://github.com/OpenHMIS/openmrs-module-patient-list/</url>
-	</scm>
+	  <tag>v1.0.0</tag>
+  </scm>
 
 	<modules>
 		<module>api</module>
@@ -99,7 +100,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-api</artifactId>
-				<version>3.5.0-SNAPSHOT</version>
+				<version>3.5.0</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -107,7 +108,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-api</artifactId>
-				<version>3.5.0-SNAPSHOT</version>
+				<version>3.5.0</version>
 				<type>test-jar</type>
 				<scope>test</scope>
 			</dependency>
@@ -123,7 +124,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod</artifactId>
-				<version>3.5.0-SNAPSHOT</version>
+				<version>3.5.0</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -131,7 +132,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod_2.x</artifactId>
-				<version>3.5.0-SNAPSHOT</version>
+				<version>3.5.0</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
