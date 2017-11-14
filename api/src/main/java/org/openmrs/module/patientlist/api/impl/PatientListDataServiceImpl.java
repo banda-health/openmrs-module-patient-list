@@ -18,7 +18,6 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
-import org.hibernate.hql.ast.QuerySyntaxException;
 import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
@@ -107,7 +106,7 @@ public class PatientListDataServiceImpl extends
 					patientListDataSet.add(patientListData);
 				}
 			}
-		} catch (QuerySyntaxException ex) {
+		} catch (Exception ex) {
 			LOG.error(ex.getMessage());
 		}
 

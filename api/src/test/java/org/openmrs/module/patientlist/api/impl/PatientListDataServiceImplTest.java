@@ -328,6 +328,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("v.startDate");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -372,6 +373,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -412,6 +414,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		order = new PatientListOrder();
@@ -419,6 +422,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.identifier");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -459,6 +463,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		order = new PatientListOrder();
@@ -466,6 +471,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("p.givenName");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
