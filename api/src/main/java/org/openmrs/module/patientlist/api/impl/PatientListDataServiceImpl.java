@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Data service implementation class for {@link PatientListData}'s.
@@ -102,6 +103,11 @@ public class PatientListDataServiceImpl extends
 						        PatientListTemplateUtil.applyTemplate(
 						            patientListData.getPatientList().getBodyTemplate(), patientListData));
 					}
+
+					// Set the data uuid to a consistent, generated uuid based on the list and patient uuid's
+					String source = patientListData.getPatientList().getUuid() + patientListData.getPatient().getUuid();
+					String uuid = UUID.nameUUIDFromBytes(source.getBytes()).toString();
+					patientListData.setUuid(uuid);
 
 					patientListDataSet.add(patientListData);
 				}

@@ -133,7 +133,7 @@
 						        ng-enter="patientListCondition(listCondition)"
 						        ng-change="patientListCondition(listCondition)">
 							<option value="">--Select Value--</option>
-							<option ng-repeat="dropDownEntry in dropDownEntries" value="{{dropDownEntry.value}}"
+							<option ng-repeat="dropDownEntry in listCondition.dropDownEntries" value="{{dropDownEntry.value}}"
 							        ng-selected="dropDownEntry.value == listCondition.value">{{dropDownEntry.display}}</option>
 						</select>
 					</td>

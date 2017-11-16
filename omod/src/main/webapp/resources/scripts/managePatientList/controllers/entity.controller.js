@@ -176,7 +176,11 @@
 							listCondition.inputType = "conceptInput";
 						} else if (listCondition.field == "v.visitType") {
 							listCondition.inputType = "dropDownInput";
-							PatientListRestfulService.loadVisitTypes(PATIENT_LIST_MODULE_NAME, self.onLoadVisitTypesSuccessful)
+							PatientListRestfulService.loadVisitTypes(PATIENT_LIST_MODULE_NAME,
+                                function (data) {
+                                    self.onLoadVisitTypesSuccessful(data, listCondition);
+                                }
+                            );
 						} else {
 							listCondition.inputType = "textInput";
 						}
@@ -185,7 +189,7 @@
 						|| fieldDescription.dataType == "org.openmrs.customdatatype.datatype.DateDatatype") {
 						if (listCondition.operator == "RELATIVE") {
 							listCondition.inputType = "dropDownInput";
-							$scope.dropDownEntries = $scope.relativeDates;
+							listCondition.dropDownEntries = $scope.relativeDates;
 						} else {
 							listCondition.inputType = "dateInput";
 							PatientListFunctions.onChangeDatePicker(self.onListConditionDateSuccessfulCallback, undefined, listCondition);
@@ -197,7 +201,7 @@
 						
 					} else if (listCondition.field == "p.gender") {
 						listCondition.inputType = "dropDownInput";
-						$scope.dropDownEntries = [{display: 'Female', value: "F"}, {display: 'Male', value: "M"}];
+						listCondition.dropDownEntries = [{display: 'Female', value: "F"}, {display: 'Male', value: "M"}];
 						
 					} else if (fieldDescription.dataType == "org.openmrs.Location") {
 						listCondition.inputType = "dropDownInput";
@@ -213,7 +217,9 @@
 					} else if (fieldDescription.dataType == "org.openmrs.module.coreapps.customdatatype.CodedConceptDatatype"
 						|| fieldDescription.attributeTypeConfig != null){
 						PatientListRestfulService.loadConceptAnswers(fieldDescription.attributeTypeConfig,
-							PATIENT_LIST_MODULE_NAME, self.onLoadConceptAnswersSuccessful);
+							PATIENT_LIST_MODULE_NAME, function (data) {
+						        self.onLoadConceptAnswersSuccessful(data, listCondition);
+                            });
 						listCondition.inputType = "dropDownInput";
 					} else {
 						listCondition.inputType = "textInput";
@@ -345,28 +351,28 @@
 				self.renderTemplate(data.bodyTemplate);
 			};
 		
-		self.onLoadLocationsSuccessful = self.onLoadLocationsSuccessful || function (data) {
+		self.onLoadLocationsSuccessful = self.onLoadLocationsSuccessful || function (data, listCondition) {
 				$scope.locations = data.results;
 				for (var i = 0; i < $scope.locations.length; i++) {
 					$scope.locations[i].value = $scope.locations[i].uuid;
 				}
-				$scope.dropDownEntries = $scope.locations;
+                listCondition.dropDownEntries = $scope.locations;
 			};
 
-		self.onLoadConceptAnswersSuccessful = self.onLoadConceptAnswersSuccessful || function (data) {
+		self.onLoadConceptAnswersSuccessful = self.onLoadConceptAnswersSuccessful || function (data, listCondition) {
 				var conceptAnswers = data.results;
 				for (var i = 0; i < conceptAnswers.length; i++) {
 					conceptAnswers[i].value = conceptAnswers[i].uuid;
 				}
-				$scope.dropDownEntries = conceptAnswers;
+                listCondition.dropDownEntries = conceptAnswers;
 			}
 		
-		self.onLoadVisitTypesSuccessful = self.onLoadVisitTypesSuccessful || function (data) {
+		self.onLoadVisitTypesSuccessful = self.onLoadVisitTypesSuccessful || function (data, listCondition) {
 				$scope.visitTypes = data.results;
 				for (var i = 0; i < $scope.visitTypes.length; i++) {
 					$scope.visitTypes[i].value = $scope.visitTypes[i].display;
 				}
-				$scope.dropDownEntries = $scope.visitTypes;
+                listCondition.dropDownEntries = $scope.visitTypes;
 			};
 		
 		/**
