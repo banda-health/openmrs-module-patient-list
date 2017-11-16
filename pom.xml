@@ -40,7 +40,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<powermock.version>1.4.10</powermock.version>
 		<javaCompilerVersion>1.7</javaCompilerVersion>
-		<openHMISCommonsVersion>3.6.0-SNAPSHOT</openHMISCommonsVersion>
 	</properties>
 
 	<dependencyManagement>
@@ -100,7 +99,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-api</artifactId>
-				<version>${openHMISCommonsVersion}</version>
+				<version>3.6.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -108,14 +107,14 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-tests</artifactId>
-				<version>${openHMISCommonsVersion}</version>
+				<version>3.6.0-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-tools</artifactId>
-				<version>${openHMISCommonsVersion}</version>
+				<version>3.6.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -123,7 +122,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod</artifactId>
-				<version>${openHMISCommonsVersion}</version>
+				<version>3.6.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -131,7 +130,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod_2.x</artifactId>
-				<version>${openHMISCommonsVersion}</version>
+				<version>3.6.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -224,7 +223,7 @@
 						<dependency>
 							<groupId>org.openmrs.module</groupId>
 							<artifactId>openhmis.commons-tools</artifactId>
-							<version>${openHMISCommonsVersion}</version>
+							<version>3.6.0-SNAPSHOT</version>
 						</dependency>
 					</dependencies>
 				</plugin>
@@ -256,7 +255,7 @@
 						<dependency>
 							<groupId>org.openmrs.module</groupId>
 							<artifactId>openhmis.commons-tools</artifactId>
-							<version>${openHMISCommonsVersion}</version>
+							<version>3.6.0-SNAPSHOT</version>
 						</dependency>
 					</dependencies>
 				</plugin>
