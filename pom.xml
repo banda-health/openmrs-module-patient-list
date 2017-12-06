@@ -152,7 +152,7 @@
 			<dependency>
 				<groupId>org.powermock</groupId>
 				<artifactId>powermock-module-junit4-rule-agent</artifactId>
-				<version>1.4.10</version>
+				<version>${powermock.version}</version>
 				<scope>test</scope>
 			</dependency>
 
