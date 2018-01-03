@@ -15,7 +15,7 @@ package org.openmrs.module.webservices.rest.resource;
 
 import org.openmrs.annotation.Handler;
 import org.openmrs.module.openhmis.commons.api.entity.IObjectDataService;
-import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.IPatientListContextDataService;
 import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.web.ModuleRestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
@@ -48,7 +48,7 @@ public class PatientListContextModelResource extends BaseRestObjectResource<Pati
 
 	@Override
 	public Class<? extends IObjectDataService<PatientListContextModel>> getServiceClass() {
-		return IPatientListContextModelDataService.class;
+		return IPatientListContextDataService.class;
 	}
 
 }

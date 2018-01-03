@@ -25,7 +25,7 @@ import java.util.List;
  * Interface that represents classes which perform data operations for {@link PatientListContextModel}s.
  */
 @Transactional
-public interface IPatientListContextModelDataService extends IObjectDataService<PatientListContextModel> {
+public interface IPatientListContextDataService extends IObjectDataService<PatientListContextModel> {
 
 	@Transactional(readOnly = true)
 	List<PatientListContextModel> getPatientListData(PatientList patientList, PagingInfo pagingInfo);

@@ -1,14 +1,26 @@
 package org.openmrs.module.patientlist.api.model;
 
 /**
- * Created by andrew on 3/3/17.
+ * Define all operator types
  */
-public interface IPatientListFieldOperatorType {
-	String equalOperator(String searchValue);
+public interface IPatientListFieldOperatorType<E> {
+	String equalOperator(E searchValue);
 
-	String greaterThan(String searchValue);
+	String greaterThan(E searchValue);
 
-	String lesserThan(String searchValue);
+	String greaterThanOrEquals(E searchValue);
 
-	String between(String searchValue);
+	String lesserThan(E searchValue);
+
+	String lesserThanOrEquals(E searchValue);
+
+	String between(E value1, E value2);
+
+	String notEquals(E searchValue);
+
+	String like(E searchValue);
+
+	String isNull();
+
+	String notNull();
 }

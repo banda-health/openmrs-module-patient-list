@@ -3,23 +3,22 @@ package org.openmrs.module.patientlist.api.model;
 import org.openmrs.OpenmrsData;
 
 /**
- * Created by andrew on 3/16/17.
+ * PatientListMappingField implementation
  */
 public class PatientListMappingField<T extends OpenmrsData> {
-
-	private T type;
 	private String mappingFieldName;
+	private Class<T> type;
 
-	public PatientListMappingField(T type, String mappingFieldName) {
-		this.type = type;
+	public PatientListMappingField(String mappingFieldName, Class<T> type) {
 		this.mappingFieldName = mappingFieldName;
-	}
-
-	public T getType() {
-		return type;
+		this.type = type;
 	}
 
 	public String getMappingFieldName() {
 		return mappingFieldName;
+	}
+
+	public Class<T> getType() {
+		return type;
 	}
 }

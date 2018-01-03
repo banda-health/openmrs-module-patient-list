@@ -67,14 +67,13 @@ public class DummyVisit extends Visit {
 		// set enddatetime -- if required
 
 		// set visit attributes
-		Map<String, IPatientInformationField<?>> fields =
+		Map<String, IPatientInformationField<?, ?>> fields =
 		        PatientInformation.getInstance().getFields();
 
 		int count = 0;
 		List<VisitAttributeType> types = Context.getVisitService().getAllVisitAttributeTypes();
-		for (Map.Entry<String, IPatientInformationField<?>> field : fields.entrySet()) {
-			String key = field.getKey();
-			if (StringUtils.contains(key, "v.attr")) {
+		for (Map.Entry<String, IPatientInformationField<?, ?>> field : fields.entrySet()) {
+			if (StringUtils.contains(field.getKey(), "v.attr")) {
 				VisitAttribute visitAttribute = new VisitAttribute();
 				visitAttribute.setVisitAttributeId(count++);
 				visitAttribute.setVisit(dummyVisit);
@@ -96,5 +95,4 @@ public class DummyVisit extends Visit {
 	private static class Holder {
 		private static final DummyVisit INSTANCE = new DummyVisit().loadData();
 	}
-
 }

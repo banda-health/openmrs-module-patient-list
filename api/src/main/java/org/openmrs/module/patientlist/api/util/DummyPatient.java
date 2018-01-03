@@ -71,11 +71,11 @@ public class DummyPatient extends Patient {
 		dummyPatient.setNames(names);
 
 		// set person attributes
-		Map<String, IPatientInformationField<?>> fields =
+		Map<String, IPatientInformationField<?, ?>> fields =
 		        PatientInformation.getInstance().getFields();
 		int count = 0;
 		Set<PersonAttribute> attributes = new HashSet<PersonAttribute>();
-		for (Map.Entry<String, IPatientInformationField<?>> field : fields.entrySet()) {
+		for (Map.Entry<String, IPatientInformationField<?, ?>> field : fields.entrySet()) {
 			String key = field.getKey();
 			if (StringUtils.contains(key, "p.attr")) {
 				PersonAttribute personAttribute = new PersonAttribute();

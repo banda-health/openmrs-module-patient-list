@@ -22,11 +22,10 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.openhmis.commons.api.entity.impl.BaseObjectDataServiceImpl;
-import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.IPatientListContextDataService;
 import org.openmrs.module.patientlist.api.model.PatientListContextModel;
 import org.openmrs.module.patientlist.api.model.PatientList;
 import org.openmrs.module.patientlist.api.model.PatientListCondition;
-import org.openmrs.module.patientlist.api.model.PatientListOperator;
 import org.openmrs.module.patientlist.api.model.PatientListOrder;
 import org.openmrs.module.patientlist.api.util.IPatientInformationField;
 import org.openmrs.module.patientlist.api.security.BasicObjectAuthorizationPrivileges;
@@ -40,9 +39,9 @@ import java.util.List;
 /**
  * Data service implementation class for {@link PatientListContextModel}'s.
  */
-public class PatientListContextModelDataServiceImpl extends
+public class PatientListContextDataServiceImpl extends
         BaseObjectDataServiceImpl<PatientListContextModel, BasicObjectAuthorizationPrivileges>
-        implements IPatientListContextModelDataService {
+        implements IPatientListContextDataService {
 
 	protected final Log LOG = LogFactory.getLog(this.getClass());
 
@@ -60,7 +59,7 @@ public class PatientListContextModelDataServiceImpl extends
 	public List<PatientListContextModel> getPatientListData(PatientList patientList, PagingInfo pagingInfo) {
 		List<PatientListContextModel> patientListDataSet = new ArrayList<PatientListContextModel>();
 		try {
-			List<Object> paramValues = new ArrayList<Object>();
+			List paramValues = new ArrayList();
 			// Create query
 			Query query = getRepository().createQuery(constructHqlQuery(patientList, paramValues));
 			// set parameters with actual values
@@ -111,195 +110,17 @@ public class PatientListContextModelDataServiceImpl extends
 	private String constructHqlQuery(PatientList patientList, List<Object> paramValues) {
 		StringBuilder hql = new StringBuilder();
 		if (patientList != null && patientList.getPatientListConditions() != null) {
-			hql.append(PatientListHQLBuilder.constructBaseHQL(patientList));
+			hql.append(PatientListHQLBuilder.constructBaseHQL(patientList, paramValues));
 		}
-
-		// add where clause
-		hql.append(" where ");
-
-		// apply patient list conditions
-		hql.append("(");
-		hql.append(applyPatientListConditions(patientList.getPatientListConditions(), paramValues));
-		hql.append(")");
 
 		//apply ordering if any
-		hql.append(applyPatientListOrdering(patientList.getOrdering()));
+		//hql.append(applyPatientListOrdering(patientList.getOrdering()));
 
 		return hql.toString();
 	}
 
 	/**
-	 * Parse patient list conditions and add create sub queries to be added on the main HQL query. Parameter search values
-	 * will be stored separately and later set when running query.
-	 * @param patientListConditions
-	 * @param paramValues
-	 * @return
-	 */
-	private String applyPatientListConditions(List<PatientListCondition> patientListConditions,
-	        List<Object> paramValues) {
-		int count = 0;
-		int noOfConditions = patientListConditions.size();
-		StringBuilder hql = new StringBuilder();
-		// apply conditions
-		for (PatientListCondition condition : patientListConditions) {
-			if (condition == null || PatientInformation.getInstance().getField(condition.getField()) == null) {
-				throw new RuntimeException("condition cannot be null");
-			}
-
-			String join = " AND ";
-			if (condition.getOperator() == null) {
-				throw new RuntimeException("operator cannot be null");
-			}
-
-			IPatientInformationField patientInformationField =
-			        PatientInformation.getInstance().getField(condition.getField());
-
-			if (condition.getOperator().equals(PatientListOperator.EQUALS)) {
-				hql.append(patientInformationField.equalOperator(condition.getValue()));
-				paramValues.addAll(patientInformationField.getParameterValues());
-			}
-
-			if (noOfConditions > ++count) {
-				hql.append(join);
-			}
-		}
-
-		return hql.toString();
-	}
-
-	/**
-	 * Creates hql sub-queries for patient and visit attributes. Example: v.attr.bed = 2
-	 * @param condition
-	 * @param paramValues
-	 * @return
-	 */
-	private String createAttributeSubQueries(PatientListCondition condition, List<Object> paramValues) {
-		StringBuilder hql = new StringBuilder();
-		String attributeName = condition.getField().split("\\.")[2];
-		attributeName = attributeName.replaceAll("_", " ");
-		String operator = ConvertPatientListOperators.convertOperator(condition.getOperator());
-		String value = condition.getValue();
-
-		if (StringUtils.contains(condition.getField(), "p.attr.")) {
-			hql.append("(attrType.name = ?");
-			hql.append(" AND ");
-			if (StringUtils.equalsIgnoreCase(operator, "exists")) {
-				hql.append("attr is not null");
-			} else if (StringUtils.equalsIgnoreCase(operator, "not exists")) {
-				hql.append("attr is null");
-			} else {
-				hql.append("attr.value ");
-				hql.append(operator);
-			}
-		} else if (StringUtils.contains(condition.getField(), "v.attr.")) {
-			hql.append("(vattrType.name = ?");
-			hql.append(" AND ");
-			if (StringUtils.equalsIgnoreCase(operator, "exists")) {
-				hql.append("vattr is not null");
-			} else if (StringUtils.equalsIgnoreCase(operator, "not exists")) {
-				hql.append("vattr is null");
-			} else {
-				hql.append("vattr.valueReference ");
-				hql.append(operator);
-			}
-		}
-
-		paramValues.add(attributeName);
-
-		if (!StringUtils.containsIgnoreCase(operator, "null")
-		        && !StringUtils.containsIgnoreCase(operator, "exists")) {
-			hql.append(" ? ");
-			if (StringUtils.equals(operator, "LIKE")) {
-				paramValues.add("%" + value + "%");
-			} else {
-				paramValues.add(value);
-			}
-		}
-
-		hql.append(") ");
-
-		return hql.toString();
-	}
-
-	/**
-	 * Creates hql sub-queries for patient aliases (names and addresses). Example: p.names.givenName, p.addresses.address1
-	 * @param condition
-	 * @param paramValues
-	 * @return
-	 */
-	private String createAliasesSubQueries(PatientListCondition condition,
-	        String mappingFieldName, List<Object> paramValues) {
-		StringBuilder hql = new StringBuilder();
-		String searchField = null;
-		String operator = ConvertPatientListOperators.convertOperator(condition.getOperator());
-		String value = condition.getValue();
-		if (mappingFieldName != null) {
-			// p.names.givenName
-			String subs[] = mappingFieldName.split("\\.");
-			if (subs != null) {
-				searchField = subs[2];
-			}
-		}
-
-		if (searchField != null) {
-			if (StringUtils.contains(mappingFieldName, "p.names.")) {
-				if (StringUtils.contains(condition.getField(), "p.fullName")) {
-					hql.append(" (pnames.givenName ");
-					hql.append(operator);
-					if (!StringUtils.containsIgnoreCase(operator, "null")) {
-						hql.append(" ? ");
-					}
-
-					hql.append(" or pnames.familyName ");
-					hql.append(operator);
-					hql.append(" ");
-					if (!StringUtils.containsIgnoreCase(operator, "null")) {
-						hql.append(" ? ");
-						paramValues.add(value);
-					}
-
-					hql.append(" ) ");
-				} else {
-					hql.append("pnames.");
-					hql.append(searchField);
-					hql.append(" ");
-					hql.append(operator);
-					if (!StringUtils.containsIgnoreCase(operator, "null")) {
-						hql.append(" ? ");
-					}
-				}
-			} else if (StringUtils.contains(mappingFieldName, "p.addresses.")) {
-				hql.append("paddresses.");
-				hql.append(searchField);
-				hql.append(" ");
-				hql.append(operator);
-				if (!StringUtils.containsIgnoreCase(operator, "null")) {
-					hql.append(" ? ");
-				}
-			} else if (StringUtils.contains(mappingFieldName, "p.identifiers.")) {
-				hql.append("pidentifiers.");
-				hql.append(searchField);
-				hql.append(" ");
-				hql.append(operator);
-				if (!StringUtils.containsIgnoreCase(operator, "null")) {
-					hql.append(" ? ");
-				}
-			}
-
-			if (StringUtils.equals(operator, "LIKE")) {
-				paramValues.add("%" + value + "%");
-			} else if (!StringUtils.containsIgnoreCase(operator, "null")) {
-				paramValues.add(value);
-			}
-
-			hql.append(" ");
-		}
-
-		return hql.toString();
-	}
-
-	/**
-	 * Order hql query by given fields
+	 * TODO: Refactor this logic and use datatypes instead of string comparisons Order hql query by given fields
 	 * @param ordering
 	 * @return
 	 */

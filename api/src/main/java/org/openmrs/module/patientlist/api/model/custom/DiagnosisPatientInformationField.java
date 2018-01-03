@@ -27,22 +27,18 @@ import java.util.List;
  * Define {@link DiagnosisPatientInformationField} operators
  * @param <T>
  */
-public class DiagnosisPatientInformationField<T extends OpenmrsData> extends AbstractPatientListField {
+public class DiagnosisPatientInformationField<T extends OpenmrsData>
+        extends AbstractPatientListField<T, String> {
 
 	public DiagnosisPatientInformationField(
-	    String prefix, String name, Class<?> dataType,
-	    Func1<T, Object> valueFunc, PatientListMappingField mappingFieldName, T entityType) {
+	    String prefix, String name, Class<?> dataType, Class<T> entityType,
+	    Func1<T, Object> valueFunc, String mappingField) {
 		setPrefix(prefix);
 		setName(name);
 		setDataType(dataType);
 		setValueFunc(valueFunc);
-		setMappingField(mappingFieldName);
 		setEntityType(entityType);
-	}
-
-	@Override
-	public List<Object> getParameterValues() {
-		return new ArrayList<Object>();
+		setMappingField(new PatientListMappingField<T>(mappingField, entityType));
 	}
 
 	@Override
@@ -52,7 +48,7 @@ public class DiagnosisPatientInformationField<T extends OpenmrsData> extends Abs
 		// coded diagnosis
 		if (NumberUtils.isDigits(searchValue)) {
 			hql.append(" ob.valueCoded.conceptId = ? ");
-			getParameterValues().add(Integer.valueOf(searchValue));
+			//getParameterValues().add(Integer.valueOf(searchValue));
 		} else {
 			// un-coded diagnosis
 			hql.append(" ob.valueText = ? ");
@@ -60,15 +56,5 @@ public class DiagnosisPatientInformationField<T extends OpenmrsData> extends Abs
 		}
 
 		return hql.toString();
-	}
-
-	@Override
-	public String greaterThan(String searchValue) {
-		return null;
-	}
-
-	@Override
-	public String lesserThan(String searchValue) {
-		return null;
 	}
 }

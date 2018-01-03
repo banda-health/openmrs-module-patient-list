@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
-import org.openmrs.module.patientlist.api.IPatientListContextModelDataService;
+import org.openmrs.module.patientlist.api.IPatientListContextDataService;
 import org.openmrs.module.patientlist.api.IPatientListDataService;
 import org.openmrs.module.patientlist.api.model.PatientList;
 import org.openmrs.module.patientlist.api.model.PatientListContextModel;
@@ -51,11 +51,11 @@ public class PatientListDataSearchHandler implements SearchHandler {
 	                                .withOptionalParameters("uuid")
 	                                .build()));
 
-	private IPatientListContextModelDataService patientListContextModelService;
+	private IPatientListContextDataService patientListContextModelService;
 	private IPatientListDataService patientListService;
 
 	@Autowired
-	public PatientListDataSearchHandler(IPatientListContextModelDataService patientListContextModelService,
+	public PatientListDataSearchHandler(IPatientListContextDataService patientListContextModelService,
 	    IPatientListDataService patientListService) {
 		this.patientListContextModelService = patientListContextModelService;
 		this.patientListService = patientListService;

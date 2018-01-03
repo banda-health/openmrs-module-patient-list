@@ -18,60 +18,75 @@ import org.openmrs.OpenmrsData;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
 import org.openmrs.module.patientlist.api.model.AbstractPatientListField;
 import org.openmrs.module.patientlist.api.model.PatientListMappingField;
+import org.openmrs.module.patientlist.api.model.PatientListOperatorConstants;
 import org.openmrs.module.patientlist.api.util.PatientListDateUtil;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Define {@link AgePatientInformationField} operators
  * @param <T>
  */
-public class AgePatientInformationField<T extends OpenmrsData> extends AbstractPatientListField {
+public class AgePatientInformationField<T extends OpenmrsData>
+        extends AbstractPatientListField<T, Object> {
 
 	public AgePatientInformationField(
-	    String prefix, String name, Class<?> dataType,
-	    Func1<T, Object> valueFunc, PatientListMappingField mappingFieldName, T entityType) {
+	    String prefix, String name, Class<?> dataType, Class<T> entityType,
+	    Func1<T, Object> valueFunc, String mappingField) {
 		setPrefix(prefix);
 		setName(name);
 		setDataType(dataType);
 		setValueFunc(valueFunc);
-		setMappingField(mappingFieldName);
 		setEntityType(entityType);
+		setMappingField(new PatientListMappingField<T>(mappingField, entityType));
 	}
 
 	@Override
-	public List<Object> getParameterValues() {
-		return new ArrayList<Object>();
+	public String equalOperator(Object searchValue) {
+		return getDefaultOperatorImplementation(createDate((Integer)searchValue),
+		    PatientListOperatorConstants.EQUALS);
 	}
 
 	@Override
-	public String equalOperator(String searchValue) {
-		StringBuilder hql = new StringBuilder();
-		hql.append(getMappingField().getMappingFieldName());
-		hql.append(" = ");
-		try {
-			int age = Integer.valueOf(searchValue);
-			Calendar calendar = Calendar.getInstance();
-			calendar.add(Calendar.YEAR, -age);
-			getParameterValues().add(PatientListDateUtil.simpleDateFormat.parse(
-			        PatientListDateUtil.simpleDateFormat.format(calendar.getTime())));
-		} catch (ParseException pex) {
-			LOG.error("error parsing date: ", pex);
+	public String between(Object value1, Object value2) {
+		return super.between(value1, value2);
+	}
+
+	@Override
+	public String greaterThan(Object searchValue) {
+		return getDefaultOperatorImplementation(createDate(searchValue),
+		    PatientListOperatorConstants.LESS_THAN);
+	}
+
+	@Override
+	public String lesserThan(Object searchValue) {
+		return getDefaultOperatorImplementation(createDate(searchValue),
+		    PatientListOperatorConstants.GREATER_THAN);
+	}
+
+	@Override
+	public String greaterThanOrEquals(Object searchValue) {
+		return getDefaultOperatorImplementation(createDate(searchValue),
+		    PatientListOperatorConstants.LESS_THAN_OR_EQUALS);
+	}
+
+	@Override
+	public String lesserThanOrEquals(Object searchValue) {
+		return getDefaultOperatorImplementation(createDate(searchValue),
+		    PatientListOperatorConstants.GREATER_THAN_OR_EQUALS);
+	}
+
+	private Date createDate(Object search) {
+		int age = 0;
+		if (search instanceof String) {
+			age = Integer.valueOf((String)search);
+		} else if (search instanceof Integer) {
+			age = (Integer)search;
 		}
-		return hql.toString();
-	}
 
-	@Override
-	public String greaterThan(String searchValue) {
-		return null;
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.YEAR, -age);
+		return calendar.getTime();
 	}
-
-	@Override
-	public String lesserThan(String searchValue) {
-		return null;
-	}
-
 }

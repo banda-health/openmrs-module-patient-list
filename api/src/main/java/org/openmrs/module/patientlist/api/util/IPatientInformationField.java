@@ -23,8 +23,8 @@ import java.util.List;
 /**
  * Base {@PatientInformationField} fields
  */
-public interface IPatientInformationField<T extends OpenmrsData>
-        extends IPatientListFieldOperatorType {
+public interface IPatientInformationField<T extends OpenmrsData, E>
+        extends IPatientListFieldOperatorType<E> {
 
 	String getPrefix();
 
@@ -40,9 +40,9 @@ public interface IPatientInformationField<T extends OpenmrsData>
 
 	void setValueFunc(Func1<T, Object> func);
 
-	T getEntityType();
+	Class<T> getEntityType();
 
-	void setEntityType(T entityType);
+	void setEntityType(Class<T> entityType);
 
 	Object getValue(T source);
 
@@ -50,5 +50,7 @@ public interface IPatientInformationField<T extends OpenmrsData>
 
 	void setMappingField(PatientListMappingField mappingField);
 
-	List<Object> getParameterValues();
+	List<E> getParameterValues();
+
+	void refresh();
 }

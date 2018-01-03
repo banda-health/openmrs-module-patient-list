@@ -14,28 +14,24 @@
 package org.openmrs.module.patientlist.api.model;
 
 import org.openmrs.OpenmrsData;
+import org.openmrs.Patient;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Model class that represents an patient information field.
  */
-public class PatientInformationField<T extends OpenmrsData> extends AbstractPatientListField {
+public class PatientInformationField<T extends OpenmrsData, E> extends AbstractPatientListField<T, E> {
 
-	public PatientInformationField(String prefix, String name, Class<?> dataType,
-	    Func1<T, Object> valueFunc, PatientListMappingField mappingFieldName, T entityType) {
+	public PatientInformationField(
+	    String prefix, String name, Class<?> dataType, Class<T> entityType,
+	    Func1<T, Object> valueFunc, String mappingFieldName) {
 		setPrefix(prefix);
 		setName(name);
 		setDataType(dataType);
 		setValueFunc(valueFunc);
-		setMappingField(mappingFieldName);
 		setEntityType(entityType);
-	}
-
-	@Override
-	public List<Object> getParameterValues() {
-		return new ArrayList<Object>();
+		if (mappingFieldName != null) {
+			setMappingField(new PatientListMappingField<T>(mappingFieldName, entityType));
+		}
 	}
 }

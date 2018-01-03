@@ -13,18 +13,20 @@
  */
 package org.openmrs.module.patientlist.api.model;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.OpenmrsData;
 import org.openmrs.module.openhmis.commons.api.f.Func1;
 import org.openmrs.module.patientlist.api.util.IPatientInformationField;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Abstract common patient list field functionality and implement operator types with default implementation.
  */
-public abstract class AbstractPatientListField<T extends OpenmrsData>
-        implements IPatientInformationField<T> {
+public abstract class AbstractPatientListField<T extends OpenmrsData, E>
+        implements IPatientInformationField<T, E> {
 
 	protected final Log LOG = LogFactory.getLog(this.getClass());
 
@@ -33,7 +35,8 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 	private PatientListMappingField mappingField;
 	private Class<?> dataType;
 	private Func1<T, Object> getValueFunc;
-	private T entityType;
+	private Class<T> entityType;
+	private List<E> params = new ArrayList<E>();
 
 	public String getPrefix() {
 		return prefix;
@@ -59,11 +62,11 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 		this.dataType = dataType;
 	}
 
-	public void setEntityType(T entityType) {
+	public void setEntityType(Class<T> entityType) {
 		this.entityType = entityType;
 	}
 
-	public T getEntityType() {
+	public Class<T> getEntityType() {
 		return entityType;
 	}
 
@@ -83,7 +86,74 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 		this.mappingField = mappingField;
 	}
 
-	private String getDefaultOperatorImplementation(String searchValue, String operator) {
+	@Override
+	public String between(E value1, E value2) {
+		StringBuilder hql = new StringBuilder();
+		hql.append(getMappingField().getMappingFieldName());
+		hql.append(" ");
+		hql.append(PatientListOperatorConstants.BETWEEN);
+		hql.append(" ? AND ? ");
+
+		getParameterValues().add(value1);
+		getParameterValues().add(value2);
+
+		return hql.toString();
+	}
+
+	@Override
+	public String equalOperator(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.EQUALS);
+	}
+
+	@Override
+	public String greaterThan(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.GREATER_THAN);
+	}
+
+	@Override
+	public String lesserThan(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.LESS_THAN);
+	}
+
+	@Override
+	public String greaterThanOrEquals(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.GREATER_THAN_OR_EQUALS);
+	}
+
+	@Override
+	public String lesserThanOrEquals(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.LESS_THAN_OR_EQUALS);
+	}
+
+	@Override
+	public String notEquals(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.NOT_EQUALS);
+	}
+
+	@Override
+	public String like(E searchValue) {
+		return getDefaultOperatorImplementation(searchValue, PatientListOperatorConstants.LIKE);
+	}
+
+	@Override
+	public String isNull() {
+		StringBuilder hql = new StringBuilder();
+		hql.append(getMappingField().getMappingFieldName());
+		hql.append(" IS NULL ");
+
+		return hql.toString();
+	}
+
+	@Override
+	public String notNull() {
+		StringBuilder hql = new StringBuilder();
+		hql.append(getMappingField().getMappingFieldName());
+		hql.append(" IS NOT NULL ");
+
+		return hql.toString();
+	}
+
+	protected String getDefaultOperatorImplementation(E searchValue, String operator) {
 		StringBuilder hql = new StringBuilder();
 		hql.append(getMappingField().getMappingFieldName());
 		hql.append(" ");
@@ -95,31 +165,12 @@ public abstract class AbstractPatientListField<T extends OpenmrsData>
 	}
 
 	@Override
-	public String between(String searchValue) {
-		StringBuilder hql = new StringBuilder();
-		hql.append(getMappingField().getMappingFieldName());
-		hql.append(" BETWEEN ? AND ? ");
-		if (StringUtils.contains(searchValue, "|")) {
-			String[] splitSearchValues = searchValue.split("|");
-			getParameterValues().add(splitSearchValues[0]);
-			getParameterValues().add(splitSearchValues[1]);
-		}
-
-		return hql.toString();
+	public List<E> getParameterValues() {
+		return params;
 	}
 
 	@Override
-	public String equalOperator(String searchValue) {
-		return getDefaultOperatorImplementation(searchValue, "=");
-	}
-
-	@Override
-	public String greaterThan(String searchValue) {
-		return getDefaultOperatorImplementation(searchValue, ">");
-	}
-
-	@Override
-	public String lesserThan(String searchValue) {
-		return getDefaultOperatorImplementation(searchValue, "<");
+	public void refresh() {
+		getParameterValues().clear();
 	}
 }
