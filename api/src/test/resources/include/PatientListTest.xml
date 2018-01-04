@@ -79,5 +79,6 @@
 	<patient_list_condition patient_list_condition_id="29" patient_list_id="0" field="v.attr.Civil Status"
 	                        condition_order="29" operator="NOT_DEFINED" value=""
 	                        uuid="4028814B39B565A20139B95FB3440033"/>
-
+	<patient_list_condition patient_list_condition_id="30" patient_list_id="0" field="v.attr.Bed"
+							operator="NOT_NULL" value="" condition_order="30" uuid="4028814B39B565A20139B95FB3440034"/>
 </dataset>
