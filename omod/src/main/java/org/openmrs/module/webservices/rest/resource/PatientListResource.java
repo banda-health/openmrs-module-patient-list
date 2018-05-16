@@ -37,7 +37,7 @@ import java.util.List;
  * REST resource representing a {@link PatientList}
  */
 @Resource(name = ModuleRestConstants.PATIENT_LIST_RESOURCE, supportedClass = PatientList.class,
-        supportedOpenmrsVersions = { "1.9.*", "1.10.*", "1.11.*", "1.12.*" })
+        supportedOpenmrsVersions = { "1.9.*", "1.10.*", "1.11.*", "1.12.*", "2.*" })
 public class PatientListResource extends BaseRestMetadataResource<PatientList> {
 
 	@Override
