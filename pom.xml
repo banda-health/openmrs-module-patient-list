@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientlist</artifactId>
-	<version>2.0.0</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Patient List</name>
 	<description>Module that provides dynamic patient list functionality.</description>
@@ -28,7 +28,7 @@
 		<connection>scm:git:git@github.com:OpenHMIS/openmrs-module-patient-list.git</connection>
 		<developerConnection>scm:git:git@github.com:OpenHMIS/openmrs-module-patient-list.git</developerConnection>
 		<url>https://github.com/OpenHMIS/openmrs-module-patient-list/</url>
-	  <tag>v2.0.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<modules>
@@ -100,7 +100,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-api</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -108,7 +108,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-tests</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0-SNAPSHOT</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -123,7 +123,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
@@ -131,7 +131,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>openhmis.commons-omod_2.x</artifactId>
-				<version>4.0.0</version>
+				<version>4.1.0-SNAPSHOT</version>
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
