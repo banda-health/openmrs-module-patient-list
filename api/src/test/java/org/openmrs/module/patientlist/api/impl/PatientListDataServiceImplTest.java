@@ -14,6 +14,7 @@
 package org.openmrs.module.patientlist.api.impl;
 
 import org.junit.*;
+import org.openmrs.VisitAttribute;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.openhmis.commons.api.PagingInfo;
 import org.openmrs.module.patientlist.api.IPatientListDataService;
@@ -26,6 +27,7 @@ import org.powermock.modules.agent.PowerMockAgent;
 import org.powermock.modules.junit4.rule.PowerMockRule;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -309,7 +311,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(2, patientListDataSet.size());
+		Assert.assertEquals(3, patientListDataSet.size());
 	}
 
 	@Test
@@ -328,6 +330,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("v.startDate");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -372,6 +375,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -394,6 +398,48 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 	}
 
 	@Test
+	public void patientList_shouldCreatePatientListSortByVisitAttribute() throws Exception {
+		PatientList patientList = patientListService.getById(0);
+
+		List<PatientListCondition> conditions = patientList.getPatientListConditions();
+		PatientListCondition bedCondition = conditions.get(30);
+
+		Assert.assertEquals("v.attr.Bed", bedCondition.getField());
+
+		patientList.getPatientListConditions().clear();
+		patientList.getPatientListConditions().add(bedCondition);
+
+		PatientListOrder order = new PatientListOrder();
+		order.setId(1);
+		order.setSortOrder("desc");
+		order.setField("v.attr.Bed");
+		order.setPatientList(patientList);
+		patientList.getOrdering().add(order);
+
+		PagingInfo pagingInfo = new PagingInfo();
+
+		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
+
+		Assert.assertNotNull(patientListDataSet);
+		Assert.assertEquals(3, patientListDataSet.size());
+
+		List<VisitAttribute> attributes = new ArrayList<VisitAttribute>(
+		        patientListDataSet.get(0).getVisit().getAttributes());
+		Assert.assertEquals("3", attributes.get(0).getValueReference());
+
+		// change ordering
+		patientList.getOrdering().get(0).setSortOrder("asc");
+		patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
+
+		Assert.assertNotNull(patientListDataSet);
+		Assert.assertEquals(3, patientListDataSet.size());
+
+		attributes = new ArrayList<VisitAttribute>(
+		        patientListDataSet.get(0).getVisit().getAttributes());
+		Assert.assertEquals("1", attributes.get(0).getValueReference());
+	}
+
+	@Test
 	public void patientList_shouldCreatePatientListWithSingleConditionMultipleSortOrder() throws Exception {
 		Date mockDate = new Date(117, 1, 31);
 
@@ -412,6 +458,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		order = new PatientListOrder();
@@ -419,6 +466,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.identifier");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();
@@ -459,6 +507,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("desc");
 		order.setField("p.age");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		order = new PatientListOrder();
@@ -466,6 +515,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		order.setSortOrder("asc");
 		order.setField("p.givenName");
 		order.setPatientList(patientList);
+		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
 
 		PagingInfo pagingInfo = new PagingInfo();

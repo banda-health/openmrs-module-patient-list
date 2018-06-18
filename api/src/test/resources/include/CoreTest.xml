@@ -219,7 +219,7 @@
 	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11133" voided="false"/>
 	<visit_attribute visit_attribute_id="8" visit_id="7" attribute_type_id="2" value_reference="Female" creator="1"
 	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11134" voided="false"/>
-	<visit_attribute visit_attribute_id="9" visit_id="8" attribute_type_id="3" value_reference="1" creator="1"
+	<visit_attribute visit_attribute_id="9" visit_id="8" attribute_type_id="3" value_reference="3" creator="1"
 	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11135" voided="false"/>
 	<visit_attribute visit_attribute_id="10" visit_id="9" attribute_type_id="3" value_reference="2" creator="1"
 	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11136" voided="false"/>

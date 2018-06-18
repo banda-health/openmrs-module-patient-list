@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<person person_id="0" gender="M" birthdate="1950-04-01" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+	        voided="false" uuid="5631b434-78aa-102b-91a0-001e378eb67e"/>
+	<person person_id="2" gender="M" birthdate="1970-07-31" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+	        voided="false" uuid="1716432a-4bf9-436c-baad-f03236e960e1"/>
+	<person person_id="3" gender="M" dead="true" creator="1" date_created="2005-01-01 00:00:00.0" voided="true"
+	        uuid="d707fad8-dbe4-40bb-bd25-321477ca18b0"/>
+	<person_name person_name_id="0" preferred="true" person_id="0" given_name="Mike" middle_name=" " family_name="Doe"
+	             creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="0f1f7d08-076b-4fc6-acac-4bb91515141e"/>
+	<person_name person_name_id="2" preferred="true" person_id="2" prefix="Dr." given_name="Mike" middle_name="Andrew"
+	             family_name="Smith" family_name2="Johnson" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="54fdf8e8-1a80-45cf-a3fd-4fabd1b8ffab"/>
+	<person_name person_name_id="3" preferred="true" person_id="3" prefix="" given_name="Irene" middle_name="W"
+	             family_name="Jane" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="1be83481-5ace-4a97-8510-d2e1257b6f6a"/>
+
+	<person person_id="4" gender="M" birthdate="2010-05-05" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+	        voided="false" uuid="56b434-78aa-102b-91a0-001e378eb6dasfa"/>
+	<person person_id="5" gender="F" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	        uuid="1716432a-4bf9-436c-baad-f03236e960f98"/>
+	<person person_id="6" gender="F" birthdate="2012-06-01" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+	        voided="true" uuid="e897fad8-dbe4-40bb-bd25-321477ca18b0"/>
+	<person_name person_name_id="4" preferred="true" person_id="4" prefix="" given_name="Jeremy" middle_name="Joe"
+	             family_name="S" family_name2="Johnson" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="54fdf8e8-1a80-45cf-a3fd-4fabd1b8ffdc"/>
+	<person_name person_name_id="5" preferred="true" person_id="5" prefix="" given_name="Doe" middle_name="am"
+	             family_name="voided" family_name2="Blow" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="1be83481-5ace-4a97-8510-d2e1257b6f897"/>
+
+	<person person_id="7" gender="F" birthdate="2000-10-01" dead="false" creator="1" date_created="2005-01-01 00:00:00.0"
+	        voided="false" uuid="7941b434-78aa-102b-91a0-001e378eb67e"/>
+	<person person_id="8" gender="M" creator="1" dead="false" date_created="2005-01-01 00:00:00.0" voided="false"
+	        uuid="4956432a-4bf9-436c-baad-f03236e960e1"/>
+	<person person_id="9" gender="F" creator="1" dead="false" date_created="2005-01-01 00:00:00.0" voided="true"
+	        uuid="dd847fad8-dbe4-40bb-bd25-321477ca18b0"/>
+	<person_name person_name_id="6" preferred="true" person_id="2" prefix="Ms." given_name="Jennifer" middle_name="Mary"
+	             family_name="Smite" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="98fdf8e8-1a80-45cf-a3fd-4fabd1b8ffab"/>
+	<person_name person_name_id="7" preferred="true" person_id="3" prefix="" given_name="Itest" middle_name="test"
+	             family_name="test" family_name2="test" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="76se83481-5ace-4a97-8510-d2e1257b6f6a"/>
+
+	<provider provider_id="0" name="Test 1 Provider" identifier="8A760" creator="1" date_created="2005-01-01 00:00:00.0"
+	          retired="0" uuid="a2c3868a-6b90-11e0-93c3-18a905e044dc"/>
+	<provider provider_id="1" name="Test 2 Provider" person_id="2" identifier="8A761" creator="1"
+	          date_created="2005-01-01 00:00:00.0" retired="0" uuid="a3a5913e-6b94-11e0-93c3-18a905e044dc"/>
+	<provider provider_id="2" name="Test 3 Provider" person_id="3" identifier="8A762" creator="1"
+	          date_created="2005-01-01 00:00:00.0" retired="0" uuid="ae401f88-6b94-11e0-93c3-18a905e044dc"/>
+
+	<location location_id="0" name="Test Location 0 " creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+	          uuid="ef93c695-ac43-450a-93f8-4b2b4d50a3c8"/>
+	<location location_id="1" name="Test Location 2" creator="1" date_created="2005-01-01 00:00:00.0" retired="false"
+	          uuid="FF8081813D91C2DA013D91C3D8040001"/>
+	<patient patient_id="7" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="7" patient_id="7" identifier="10000" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="1ac98ec8-e9d9-4626-998c-c795c2f0aa9f"/>
+	<patient_identifier_type patient_identifier_type_id="0" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="0cbecb62-7249-4f91-8edf-d0206ecceb63"/>
+
+	<patient patient_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="0" patient_id="0" identifier="10001" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CDF3A013A0CDF3A3D0000"/>
+	<patient_identifier_type patient_identifier_type_id="0" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4028814B3A0CDF3A013A0CDF73C40003"/>
+
+	<patient patient_id="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="1" patient_id="0" identifier="10002" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CDF3A013A0CDF3A3D0001"/>
+	<patient_identifier_type patient_identifier_type_id="1" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4028814B3A0CDF3A013A0CDF73C40005"/>
+
+	<patient patient_id="2" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="2" patient_id="2" identifier="10003" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CDF3A013A0CDF3A3D0002"/>
+	<patient_identifier_type patient_identifier_type_id="2" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4028814B3A0CDF3A013A0CDF73C40006"/>
+
+	<patient patient_id="3" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="3" patient_id="3" identifier="10004" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CEF3A013A0CDF3A3D0002"/>
+	<patient_identifier_type patient_identifier_type_id="3" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4728814B3A0CDF3A013A0CDF73C40007"/>
+
+	<patient patient_id="4" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="4" patient_id="4" identifier="10005" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CFF3A013A0CDF3A3D0002"/>
+	<patient_identifier_type patient_identifier_type_id="4" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4828814B3A0CDF3A013A0CDF73C40008"/>
+
+	<patient patient_id="5" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="5" patient_id="5" identifier="10006" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CGF3A013A0CDF3A3D0002"/>
+	<patient_identifier_type patient_identifier_type_id="5" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="4928814B3A0CDF3A013A0CDF73C40009"/>
+
+	<patient patient_id="6" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+	<patient_identifier patient_identifier_id="6" patient_id="6" identifier="10007" identifier_type="1" preferred="1"
+	                    location_id="0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	                    uuid="4028814B3A0CHF3A013A0CDF3A3D0002"/>
+	<patient_identifier_type patient_identifier_type_id="6" name="Test Identifier Type" description="Test description"
+	                         creator="1" date_created="2005-01-01 00:00:00.0" required="false"
+	                         retired="false" uuid="41028814B3A0CDF3A013A0CDF73C40010"/>
+
+	<person_attribute_type person_attribute_type_id="0" name="Phone" format="java.lang.String" foreign_key="0" retired="0"
+	                       searchable="0" sort_weight="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	                       uuid="4038814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute_type person_attribute_type_id="1" name="Address" format="java.lang.String" foreign_key="0" retired="0"
+	                       searchable="0" sort_weight="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	                       uuid="4048814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute_type person_attribute_type_id="2" name="City" format="java.lang.String" foreign_key="0" retired="0"
+	                       searchable="0" sort_weight="2" creator="1" date_created="2005-01-01 00:00:00.0"
+	                       uuid="4058814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute_type person_attribute_type_id="3" name="State" format="java.lang.String" foreign_key="0" retired="0"
+	                       searchable="0" sort_weight="3" creator="1" date_created="2005-01-01 00:00:00.0"
+	                       uuid="4068814B3A0CDF3A013A0CDF73C40006"/>
+
+	<person_attribute person_attribute_id="0" person_id="0" value="809586457" person_attribute_type_id="0" voided="0"
+	                  creator="1" date_created="2005-01-01 00:00:00.0" uuid="4138814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="1" person_id="2" value="Home" person_attribute_type_id="1" voided="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="4238814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="2" person_id="6" value="Home Add." person_attribute_type_id="1" voided="0"
+	                  creator="1" date_created="2005-01-01 00:00:00.0" uuid="4338814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="3" person_id="3" value="Nairobi" person_attribute_type_id="2" voided="0"
+	                  creator="1" date_created="2005-01-01 00:00:00.0" uuid="4438814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="4" person_id="0" value="N/A" person_attribute_type_id="3" voided="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="4538814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="5" person_id="5" value="809800000" person_attribute_type_id="0" voided="0"
+	                  creator="1" date_created="2005-01-01 00:00:00.0" uuid="4638814B3A0CDF3A013A0CDF73C40006"/>
+	<person_attribute person_attribute_id="6" person_id="7" value="none" person_attribute_type_id="3" voided="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="4638814B3A0CDF3A013A0CDF73C40007"/>
+	<person_attribute person_attribute_id="7" person_id="7" value="Nairobi" person_attribute_type_id="2" voided="0"
+	                  creator="1" date_created="2005-01-01 00:00:00.0" uuid="4638814B3A0CDF3A013A0CDF73C40008"/>
+
+	<visit_type visit_type_id="0" name="Outpatient" creator="1" date_created="2016-10-01 00:00:00.0" retired="false"
+	            uuid="ef8081813DD43016013DD43016B44568"/>
+	<visit_type visit_type_id="1" name="Facility" creator="1" date_created="2016-10-01 00:00:00.0" retired="false"
+	            uuid="ef8081813DD43016013DD43016B44579"/>
+	<visit_type visit_type_id="2" name="Inpatient" creator="1" date_created="2016-10-01 00:00:00.0" retired="false"
+	            uuid="ef8081813DD43016013DD43016B44588"/>
+
+	<visit visit_id="0" patient_id="0" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-10-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11111"/>
+	<visit visit_id="1" patient_id="0" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2015-12-31 00:00:00.0" date_stopped="2016-01-31 00:00:00.0" voided="false"
+	       uuid="ef8081813DD43016013DD43016B11112"/>
+	<visit visit_id="2" patient_id="0" visit_type_id="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-01-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11113"/>
+	<visit visit_id="3" patient_id="1" visit_type_id="2" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-07-21 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11114"/>
+	<visit visit_id="4" patient_id="1" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-11-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11115"/>
+	<visit visit_id="5" patient_id="1" visit_type_id="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-06-27 00:00:00.0" date_stopped="2016-07-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11116"/>
+	<visit visit_id="6" patient_id="2" visit_type_id="2" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-10-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11117"/>
+	<visit visit_id="7" patient_id="2" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-09-06 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11118"/>
+	<visit visit_id="8" patient_id="2" visit_type_id="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2015-11-01 00:00:00.0" date_stopped="2015-11-02 00:00:00.0" voided="false"
+	       uuid="ef8081813DD43016013DD43016B11119"/>
+	<visit visit_id="9" patient_id="0" visit_type_id="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2014-05-05 00:00:00.0" date_stopped="2014-06-01 00:00:00.0" voided="false"
+	       uuid="ef8081813DD43016013DD43016B11120"/>
+	<visit visit_id="10" patient_id="1" visit_type_id="2" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2013-03-07 00:00:00.0" date_stopped="2013-05-07 00:00:00.0" voided="false"
+	       uuid="ef8081813DD43016013DD43016B11121"/>
+	<visit visit_id="11" patient_id="2" visit_type_id="1" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2015-12-01 00:00:00.0" date_stopped="2015-12-02 00:00:00.0" voided="false"
+	       uuid="ef8081813DD43016013DD43016B11122"/>
+	<visit visit_id="12" patient_id="1" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-12-01 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11123"/>
+	<visit visit_id="13" patient_id="1" visit_type_id="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	       date_started="2016-12-08 00:00:00.0" voided="false" uuid="ef8081813DD43016013DD43016B11124"/>
+
+	<visit_attribute_type visit_attribute_type_id="0" name="First Visit" min_occurs="0"
+	                      datatype="org.openmrs.customdatatype.BooleanDatatype" creator="1"
+	                      date_created="2005-01-01 00:00:00.0" retired="0" uuid="ef8081813DD43016013DD43016B11122"/>
+	<visit_attribute_type visit_attribute_type_id="1" name="Admission Date" min_occurs="0"
+	                      datatype="org.openmrs.customdatatype.DateDatatype" creator="1"
+	                      date_created="2005-01-01 00:00:00.0" retired="0" uuid="ef8081813DD43016013DD43016B11123"/>
+	<visit_attribute_type visit_attribute_type_id="2" name="Ward" min_occurs="0"
+	                      datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype" creator="1"
+	                      date_created="2005-01-01 00:00:00.0" retired="0" uuid="ef8081813DD43016013DD43016B11124"/>
+	<visit_attribute_type visit_attribute_type_id="3" name="Bed" min_occurs="0"
+	                      datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype" creator="1"
+	                      date_created="2005-01-01 00:00:00.0" retired="0" uuid="ef8081813DD43016013DD43016B11125"/>
+
+	<visit_attribute visit_attribute_id="0" visit_id="0" attribute_type_id="0" value_reference="true" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11126" voided="false"/>
+	<visit_attribute visit_attribute_id="1" visit_id="1" attribute_type_id="1" value_reference="2016-10-01" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11127" voided="false"/>
+	<visit_attribute visit_attribute_id="2" visit_id="2" attribute_type_id="2" value_reference="Male" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11128" voided="false"/>
+	<visit_attribute visit_attribute_id="3" visit_id="3" attribute_type_id="3" value_reference="1" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11129" voided="false"/>
+	<visit_attribute visit_attribute_id="4" visit_id="4" attribute_type_id="0" value_reference="false" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11130" voided="false"/>
+	<visit_attribute visit_attribute_id="5" visit_id="5" attribute_type_id="0" value_reference="false" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11131" voided="false"/>
+	<visit_attribute visit_attribute_id="6" visit_id="6" attribute_type_id="1" value_reference="2016-10-02" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11132" voided="false"/>
+	<visit_attribute visit_attribute_id="7" visit_id="0" attribute_type_id="1" value_reference="2016-10-03" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11133" voided="false"/>
+	<visit_attribute visit_attribute_id="8" visit_id="7" attribute_type_id="2" value_reference="Female" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11134" voided="false"/>
+	<visit_attribute visit_attribute_id="9" visit_id="8" attribute_type_id="3" value_reference="1" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11135" voided="false"/>
+	<visit_attribute visit_attribute_id="10" visit_id="9" attribute_type_id="3" value_reference="2" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11136" voided="false"/>
+	<visit_attribute visit_attribute_id="11" visit_id="10" attribute_type_id="2" value_reference="Female" creator="1"
+	                 date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B11137" voided="false"/>
+
+	<encounter_type encounter_type_id="0" name="Observation" creator="1" date_created="2005-01-01 00:00:00.0" retired="0"
+	                uuid="ff9081813DD43016013DD43016B11138"/>
+	<encounter_type encounter_type_id="1" name="Clinician" creator="1" date_created="2005-01-01 00:00:00.0" retired="0"
+	                uuid="ff9081814DD43016013DD43016B11138"/>
+	<encounter_type encounter_type_id="2" name="Clerk" creator="1" date_created="2005-01-01 00:00:00.0" retired="0"
+	                uuid="ff9081815DD43016013DD43016B11138"/>
+	<encounter_type encounter_type_id="3" name="Inpatient" creator="1" date_created="2005-01-01 00:00:00.0" retired="0"
+	                uuid="ff9081816DD43016013DD43016B11138"/>
+
+	<encounter encounter_id="0" encounter_type="0" patient_id="0" visit_id="0" encounter_datetime="2016-12-31 00:00:00.0"
+	           creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11138"/>
+	<encounter encounter_id="1" encounter_type="2" patient_id="2" visit_id="2" encounter_datetime="2016-12-31 00:00:00.0"
+	           creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11238"/>
+	<encounter encounter_id="2" encounter_type="3" patient_id="7" visit_id="7" encounter_datetime="2016-12-31 00:00:00.0"
+	           creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11338"/>
+	<encounter encounter_id="3" encounter_type="1" patient_id="4" visit_id="4" encounter_datetime="2016-12-31 00:00:00.0"
+	           creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11438"/>
+	<encounter encounter_id="4" encounter_type="0" patient_id="5" visit_id="5" encounter_datetime="2016-12-31 00:00:00.0"
+	           creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11538"/>
+
+	<concept_class concept_class_id="0" name="Diagnosis" retired="0" creator="1" date_created="2005-01-01 00:00:00.0"
+	               uuid="8d4918b0-c2cc-11de-8d13-0010c6dffd0f"/>
+
+	<concept_datatype concept_datatype_id="0" name="Numeric" hl7_abbreviation="NM" retired="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="gg8081813DD43016013DD43016B19141"/>
+	<concept_datatype concept_datatype_id="1" name="Coded" hl7_abbreviation="CWE" retired="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="hh8081813DD43016013DD43016B19141"/>
+	<concept_datatype concept_datatype_id="2" name="Text" hl7_abbreviation="ST" retired="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="ii8081813DD43016013DD43016B19141"/>
+	<concept_datatype concept_datatype_id="3" name="Date" hl7_abbreviation="DT" retired="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="jj8081813DD43016013DD43016B19141"/>
+	<concept_datatype concept_datatype_id="4" name="Boolean" hl7_abbreviation="BIT" retired="0" creator="1"
+	                  date_created="2005-01-01 00:00:00.0" uuid="kk8081813DD43016013DD43016B19141"/>
+
+	<concept concept_id="0" retired="0" datatype_id="0" class_id="0" is_set="0" creator="1"
+	         date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B19141"/>
+	<concept concept_id="1" retired="0" datatype_id="1" class_id="1" is_set="0" creator="1"
+	         date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B19142"/>
+	<concept concept_id="2" retired="0" datatype_id="2" class_id="2" is_set="0" creator="1"
+	         date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B19143"/>
+	<concept concept_id="3" retired="0" datatype_id="3" class_id="3" is_set="0" creator="1"
+	         date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B19144"/>
+	<concept concept_id="4" retired="0" datatype_id="4" class_id="0" is_set="0" creator="1"
+	         date_created="2005-01-01 00:00:00.0" uuid="ef8081813DD43016013DD43016B19145"/>
+
+	<obs obs_id="0" person_id="0" concept_id="0" value_coded="0" encounter_id="0" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B11140"/>
+	<obs obs_id="1" person_id="3" concept_id="4" value_coded="0" encounter_id="4" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B12140"/>
+	<obs obs_id="2" person_id="8" concept_id="1" encounter_id="1" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B13140"/>
+	<obs obs_id="3" person_id="5" concept_id="4" value_coded="0" encounter_id="4" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B14140"/>
+	<obs obs_id="4" person_id="0" concept_id="2" encounter_id="2" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B15140"/>
+	<obs obs_id="5" person_id="4" concept_id="2" encounter_id="2" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B16140"/>
+	<obs obs_id="6" person_id="3" concept_id="3" encounter_id="3" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B17140"/>
+	<obs obs_id="7" person_id="1" concept_id="4" encounter_id="4" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B18140"/>
+	<obs obs_id="8" person_id="1" concept_id="1" encounter_id="1" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD43016B19140"/>
+	<obs obs_id="9" person_id="1" concept_id="0" value_text="malaria" encounter_id="1" obs_datetime="2016-12-31 00:00:00.0" creator="1"
+	     date_created="2005-01-01 00:00:00.0" voided="0" uuid="ef8081813DD43016013DD53016B19140"/>
+
+	<concept_name concept_name_id="0" concept_id="0" name="1" locale="en" locale_preferred="false" voided="0" creator="1"
+	              date_created="2005-01-01 00:00:00.0" uuid="ef8081813ee43016013DD43016B19141"/>
+	<concept_name concept_name_id="1" concept_id="1" name="Malaria" locale="en" locale_preferred="false" voided="0"
+	              creator="1" date_created="2005-01-01 00:00:00.0" uuid="ef8081813ef43016013DD43016B19141"/>
+	<concept_name concept_name_id="2" concept_id="2" name="Malaria" locale="en" locale_preferred="false" voided="0"
+	              creator="1" date_created="2005-01-01 00:00:00.0" uuid="ef8081813fe43016013DD43016B19141"/>
+	<concept_name concept_name_id="3" concept_id="3" name="2016-12-01" locale="en" locale_preferred="false" voided="0"
+	              creator="1" date_created="2005-01-01 00:00:00.0" uuid="ef8081813Ef43016013DD43016B19141"/>
+	<concept_name concept_name_id="4" concept_id="4" name="false" locale="en" locale_preferred="false" voided="0"
+	              creator="1" date_created="2005-01-01 00:00:00.0" uuid="ef8081813FE43016013DD43016B19141"/>
+
+	<role role="Grandchild" description="This is a test role" uuid="FF8081813DD43016013DD43016B10000"/>
+	<role role="Child Role" description="This is a test role" uuid="94d62f4b-dd14-4597-be10-402def31094c"/>
+	<role role="Parent" description="This is a test parent role" uuid="8de52b9e-e07d-4978-ba4a-a3828c13e482"/>
+	<role role="Other" description="Some role" uuid="FF8081813DD43016013DD4353AC70001"/>
+	<role_role parent_role="Parent" child_role="Child Role"/>
+	<role_role parent_role="Child Role" child_role="Grandchild"/>
+
+	<person person_id="5506" gender="M" dead="false" creator="1" date_created="2008-08-15 15:57:09.0" voided="false"
+	        uuid="4e7f6953-0f86-4702-a06b-17112e8f144b"/>
+	<person_name person_name_id="5" preferred="true" person_id="5506" given_name="Jack" middle_name=" " family_name="Black"
+	             creator="1" date_created="2005-01-01 00:00:00.0" voided="false"
+	             uuid="6fc41fe3-b01f-42a8-a825-547d779b27d5"/>
+	<users user_id="5506" person_id="5506" system_id="7-5" username="correctlyhashedSha1"
+	       password="4a1750c8607d0fa237de36c6305715c223415189" salt="c788c6ad82a157b712392ca695dfcf2eed193d7f"
+	       secret_question=""
+	       creator="1" date_created="2008-08-15 15:57:09.0" changed_by="1" date_changed="2008-08-18 11:51:56.0"
+	       retired="false" retire_reason="" uuid="06d05314-e132-11de-babe-001e378eb67e"/>
+	<user_role user_id="5506" role="Child Role"/>
+</dataset>
