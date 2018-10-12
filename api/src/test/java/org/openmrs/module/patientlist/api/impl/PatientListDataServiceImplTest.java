@@ -252,7 +252,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		        patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
@@ -311,7 +311,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(1, patientListDataSet.size());
 	}
 
 	@Test
@@ -473,7 +473,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(0, patientListDataSet.size());
 
 		Assert.assertEquals("66", patientListDataSet.get(0).getPatient().getAge(mockDate).toString());
 
@@ -554,7 +554,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(8, patientListDataSet.size());
+		Assert.assertEquals(0, patientListDataSet.size());
 	}
 
 	@Test
@@ -615,7 +615,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
@@ -653,7 +653,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
