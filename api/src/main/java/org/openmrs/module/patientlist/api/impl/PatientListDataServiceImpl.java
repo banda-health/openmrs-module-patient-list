@@ -206,7 +206,8 @@ public class PatientListDataServiceImpl extends
 		//apply ordering if any
 		if (!countQuery) {
 
-			if (searchField(patientList.getPatientListConditions(), "v.", false) != null) {
+			if (searchField(patientList.getPatientListConditions(), "v.", false) != null
+			        || searchField(patientList.getPatientListConditions(), "p.hasActiveVisit", false) != null) {
 				hql.append(" GROUP BY v.visitId ");
 			} else {
 				hql.append(" GROUP BY p.patientId ");
