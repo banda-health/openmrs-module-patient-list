@@ -148,14 +148,14 @@ public class PatientListDataServiceImpl extends
 			        || searchField(patientList.getPatientListConditions(), "hasDiagnosis", false) != null) {
 				// join visit and patient tables
 				if (countQuery) {
-					hql.append("select count(v) from Visit v inner join v.patient as p ");
+					hql.append("select count(distinct v.visitId) from Visit v inner join v.patient as p ");
 				} else {
 					hql.append("select v from Visit v inner join v.patient as p ");
 				}
 			} else {
 				// use only the patient table
 				if (countQuery) {
-					hql.append("select count(p) from Patient p ");
+					hql.append("select count(distinct p.patientId) from Patient p ");
 				} else {
 					hql.append("select p from Patient p ");
 				}
@@ -205,8 +205,18 @@ public class PatientListDataServiceImpl extends
 
 		//apply ordering if any
 		if (!countQuery) {
+
+			if (searchField(patientList.getPatientListConditions(), "v.", false) != null
+			        || searchField(patientList.getPatientListConditions(), "p.hasActiveVisit", false) != null) {
+				hql.append(" GROUP BY v.visitId ");
+			} else {
+				hql.append(" GROUP BY p.patientId ");
+			}
+
 			hql.append(applyPatientListOrdering(patientList.getOrdering()));
 		}
+
+		//LOG.warn(hql.toString());
 
 		return hql.toString();
 	}

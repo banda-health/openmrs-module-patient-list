@@ -252,7 +252,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		        patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
@@ -311,7 +311,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(1, patientListDataSet.size());
 	}
 
 	@Test
@@ -463,8 +463,8 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 
 		order = new PatientListOrder();
 		order.setId(2);
-		order.setSortOrder("desc");
-		order.setField("p.identifier");
+		order.setSortOrder("asc");
+		order.setField("p.gender");
 		order.setPatientList(patientList);
 		order.setConditionOrder(0);
 		patientList.getOrdering().add(order);
@@ -473,15 +473,15 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(5, patientListDataSet.size());
 
-		Assert.assertEquals("66", patientListDataSet.get(0).getPatient().getAge(mockDate).toString());
+		Assert.assertEquals("69", patientListDataSet.get(0).getPatient().getAge(mockDate).toString());
 
 		patientList.getOrdering().get(1).setSortOrder("asc");
 		patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(5, patientListDataSet.size());
 
 		Assert.assertEquals("46", patientListDataSet.get(0).getPatient().getAge(mockDate).toString());
 	}
@@ -615,7 +615,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
@@ -653,7 +653,7 @@ public class PatientListDataServiceImplTest extends IPatientListDataServiceTest 
 		List<PatientListData> patientListDataSet = patientListDataService.getPatientListData(patientList, pagingInfo);
 
 		Assert.assertNotNull(patientListDataSet);
-		Assert.assertEquals(3, patientListDataSet.size());
+		Assert.assertEquals(2, patientListDataSet.size());
 	}
 
 	@Test
