@@ -43,7 +43,7 @@
 		// @Override
 		self.bindExtraVariablesToScope = self.bindExtraVariablesToScope
 			|| function() {
-				$scope.limit = 5;
+				$scope.limit = 25;
 
 				$scope.pagingFrom = PaginationService.pagingFrom;
 				$scope.pagingTo = PaginationService.pagingTo;
